@@ -69,6 +69,7 @@ int drawable messenger_button_blue_bg_selector 0x7f020017
 int drawable messenger_button_send_round_shadow 0x7f020018
 int drawable messenger_button_white_bg_round 0x7f020019
 int drawable messenger_button_white_bg_selector 0x7f02001a
+int drawable ocupador 0x7f02001b
 int id automatic 0x7f080000
 int id bottom 0x7f08000c
 int id box_count 0x7f080009

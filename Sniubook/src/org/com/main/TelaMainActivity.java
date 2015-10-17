@@ -1,5 +1,13 @@
 package org.com.main;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,10 +18,10 @@ import android.view.View.OnClickListener;
 //import android.database.sqlite.SQLiteDatabase;
 //import android.database.Cursor;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class TelaMainActivity extends Activity {
 	
+	CallbackManager callbackManager;
 	Button btRegistrar;
 	String APP_ID = getString(R.string.APP_ID);
 	
@@ -25,6 +33,48 @@ public class TelaMainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tela_main);
+		
+		FacebookSdk.sdkInitialize(getApplicationContext());
+		callbackManager = CallbackManager.Factory.create();
+		LoginButton loginButton = (LoginButton) findViewById(R.id.loginButton1);
+		loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+			
+			@Override
+			public void onSuccess(LoginResult result) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onError(FacebookException error) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void onCancel() {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+		
+		LoginManager.getInstance().registerCallback(callbackManager,
+	            new FacebookCallback<LoginResult>() {
+	                @Override
+	                public void onSuccess(LoginResult loginResult) {
+	                    // App code
+	                }
+
+	                @Override
+	                public void onCancel() {
+	                     // App code
+	                }
+
+	                @Override
+	                public void onError(FacebookException exception) {
+	                     // App code   
+	                }
+	    });
 		
 		btRegistrar = (Button) findViewById(R.id.btRegistrar);
 		
@@ -60,6 +110,12 @@ public class TelaMainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    super.onActivityResult(requestCode, resultCode, data);
+	    callbackManager.onActivityResult(requestCode, resultCode, data);
 	}
 
 }

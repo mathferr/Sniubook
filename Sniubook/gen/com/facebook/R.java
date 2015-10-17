@@ -85,6 +85,7 @@ public final class R {
 		public static final int messenger_button_send_round_shadow = 0x7f020019;
 		public static final int messenger_button_white_bg_round = 0x7f02001a;
 		public static final int messenger_button_white_bg_selector = 0x7f02001b;
+		public static final int ocupador = 0x7f02001c;
 	}
 	public static final class id {
 		public static final int automatic = 0x7f090000;

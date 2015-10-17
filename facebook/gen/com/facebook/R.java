@@ -195,6 +195,7 @@ containing a value of this type.
         public static int messenger_button_send_round_shadow=0x7f020018;
         public static int messenger_button_white_bg_round=0x7f020019;
         public static int messenger_button_white_bg_selector=0x7f02001a;
+        public static int ocupador=0x7f02001b;
     }
     public static final class id {
         public static int automatic=0x7f080000;
