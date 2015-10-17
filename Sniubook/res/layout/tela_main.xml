@@ -45,17 +45,12 @@
 
     <com.facebook.login.widget.LoginButton
         android:id="@+id/loginButton1"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btRegistrar"
-        android:layout_below="@+id/btRegistrar"
-        android:layout_marginTop="55dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/btRegistrar"
+        android:layout_marginBottom="51dp"
         android:text="LoginButton" />
-    
-    <ImageView 
-        android:id="@+id/prof_pick"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

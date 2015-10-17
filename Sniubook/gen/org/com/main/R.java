@@ -205,17 +205,18 @@ containing a value of this type.
         public static final int messenger_button_send_round_shadow=0x7f020019;
         public static final int messenger_button_white_bg_round=0x7f02001a;
         public static final int messenger_button_white_bg_selector=0x7f02001b;
+        public static final int ocupador=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f090029;
+        public static final int action_settings=0x7f090028;
         public static final int automatic=0x7f090000;
         public static final int bottom=0x7f09000c;
         public static final int box_count=0x7f090009;
-        public static final int btCancelar=0x7f090027;
+        public static final int btCancelar=0x7f090026;
         public static final int btLogin=0x7f09001c;
         public static final int btRegistrar=0x7f09001d;
         public static final int button=0x7f09000a;
-        public static final int button1=0x7f090028;
+        public static final int button1=0x7f090027;
         public static final int center=0x7f09000f;
         public static final int com_facebook_body_frame=0x7f090014;
         public static final int com_facebook_button_xout=0x7f090016;
@@ -225,8 +226,8 @@ containing a value of this type.
         public static final int com_facebook_tooltip_bubble_view_text_body=0x7f090017;
         public static final int com_facebook_tooltip_bubble_view_top_pointer=0x7f090015;
         public static final int display_always=0x7f090001;
-        public static final int editText1=0x7f090026;
-        public static final int editText2=0x7f090024;
+        public static final int editText1=0x7f090025;
+        public static final int editText2=0x7f090023;
         public static final int inline=0x7f09000d;
         public static final int large=0x7f090003;
         public static final int left=0x7f090010;
@@ -236,14 +237,13 @@ containing a value of this type.
         public static final int normal=0x7f090004;
         public static final int open_graph=0x7f090006;
         public static final int page=0x7f090007;
-        public static final int prof_pick=0x7f09001f;
-        public static final int quickContactBadge1=0x7f090022;
-        public static final int radioButton1=0x7f090021;
-        public static final int radioButton2=0x7f090020;
+        public static final int quickContactBadge1=0x7f090021;
+        public static final int radioButton1=0x7f090020;
+        public static final int radioButton2=0x7f09001f;
         public static final int right=0x7f090011;
         public static final int small=0x7f090005;
-        public static final int spinner1=0x7f090023;
-        public static final int spinner2=0x7f090025;
+        public static final int spinner1=0x7f090022;
+        public static final int spinner2=0x7f090024;
         public static final int standard=0x7f09000b;
         public static final int textView1=0x7f09001b;
         public static final int textView2=0x7f09001a;
