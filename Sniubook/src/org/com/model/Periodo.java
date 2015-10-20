@@ -12,16 +12,16 @@ import java.util.ArrayList;
  * @author SAMSUNG
  */
 public class Periodo {
-    private int codigo;
+    private String codigo;
     private ArrayList<Disciplina> listaDisciplinas;
     
 
-    public Periodo(int codigo, ArrayList<Disciplina> listaDisciplinas) {
+    public Periodo(String codigo, ArrayList<Disciplina> listaDisciplinas) {
         this.codigo = codigo;
         this.listaDisciplinas = listaDisciplinas;
     }
 
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 

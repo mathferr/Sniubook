@@ -12,7 +12,7 @@ package org.com.model;
 public class Professor extends Pessoa {
     private int registroProfissional;
 
-    public Professor(int registroProfissional, String nome, int cpf, String email) {
+    public Professor(int registroProfissional, String nome, String cpf, String email) {
         super(nome, cpf, email);
         this.registroProfissional = registroProfissional;
     }

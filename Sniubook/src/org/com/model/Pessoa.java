@@ -11,10 +11,10 @@ package org.com.model;
  */
 public class Pessoa {
     protected String nome;
-    protected int cpf;
+    protected String cpf;
     protected String email;
 
-    public Pessoa(String nome, int cpf, String email) {
+    public Pessoa(String nome, String cpf, String email) {
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
@@ -24,7 +24,7 @@ public class Pessoa {
         return nome;
     }
 
-    public int getCpf() {
+    public String getCpf() {
         return cpf;
     }
 

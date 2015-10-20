@@ -6,80 +6,117 @@
     android:orientation="vertical"
     tools:context=".TelaRegistrar" >
 
-    <RadioButton
-        android:id="@+id/radioButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/radioButton1"
-        android:layout_alignBottom="@+id/radioButton1"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="56dp"
-        android:text="Ex-Aluno" />
-
-    <RadioButton
-        android:id="@+id/radioButton1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/quickContactBadge1"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="23dp"
-        android:layout_toLeftOf="@+id/radioButton2"
-        android:text="Aluno" />
-
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editText2" />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/spinner1" />
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/radioButton2"
-        android:ems="10" />
-
-    <EditText
-        android:id="@+id/editText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1"
-        android:ems="10" />
-
     <Button
-        android:id="@+id/btCancelar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
-        android:text="Cancelar" />
-
-    <Button
-        android:id="@+id/button1"
+        android:id="@+id/btConfirmarRegistro"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/btCancelar"
         android:layout_alignParentLeft="true"
         android:text="Confirmar" />
 
+    <Spinner
+        android:id="@+id/spPeriodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btConfirmarRegistro"
+        android:layout_alignParentLeft="true"
+        android:entries="@array/Periodo"
+        android:prompt="@string/prompt_periodo" />
+
+    <Spinner
+        android:id="@+id/spCurso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spPeriodo"
+        android:layout_alignParentLeft="true"
+        android:entries="@array/Curso"
+        android:prompt="@string/prompt_curso" />
+
+    <Spinner
+        android:id="@+id/spCampus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spCurso"
+        android:layout_alignParentLeft="true"
+        android:entries="@array/Campus"
+        android:prompt="@string/prompt_campus" />
+
     <QuickContactBadge
         android:id="@+id/quickContactBadge1"
         android:layout_width="100dp"
         android:layout_height="75dp"
+        android:layout_alignBottom="@+id/rbgTypeAluno"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+
+    <RadioGroup
+        android:id="@+id/rbgTypeAluno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true" >
+
+        <RadioButton
+            android:id="@+id/rbAluno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="56dp"
+            android:layout_marginTop="21dp"
+            android:text="Aluno" />
+
+        <RadioButton
+            android:id="@+id/rbExAluno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ex-Aluno" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/tvAlunoRegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/quickContactBadge1"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/tvAlunoNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvAlunoRegistro"
+        android:ems="10" />
+
+    <EditText
+        android:id="@+id/tvAlunoCpf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvAlunoNome"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btCancelar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:text="Cancelar" />
+
+    <EditText
+        android:id="@+id/tvAlunoEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/spCampus"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
 
 </RelativeLayout>

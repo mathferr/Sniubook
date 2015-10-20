@@ -8,6 +8,11 @@
 package org.com.main;
 
 public final class R {
+    public static final class array {
+        public static final int Campus=0x7f080000;
+        public static final int Curso=0x7f080001;
+        public static final int Periodo=0x7f080002;
+    }
     public static final class attr {
         /** <p>Must be one of the following constant values.</p>
 <table>
@@ -208,47 +213,62 @@ containing a value of this type.
         public static final int ocupador=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f090028;
-        public static final int automatic=0x7f090000;
-        public static final int bottom=0x7f09000c;
-        public static final int box_count=0x7f090009;
-        public static final int btCancelar=0x7f090026;
-        public static final int btLogin=0x7f09001c;
-        public static final int btRegistrar=0x7f09001d;
-        public static final int button=0x7f09000a;
-        public static final int button1=0x7f090027;
-        public static final int center=0x7f09000f;
-        public static final int com_facebook_body_frame=0x7f090014;
-        public static final int com_facebook_button_xout=0x7f090016;
-        public static final int com_facebook_fragment_container=0x7f090012;
-        public static final int com_facebook_login_activity_progress_bar=0x7f090013;
-        public static final int com_facebook_tooltip_bubble_view_bottom_pointer=0x7f090018;
-        public static final int com_facebook_tooltip_bubble_view_text_body=0x7f090017;
-        public static final int com_facebook_tooltip_bubble_view_top_pointer=0x7f090015;
-        public static final int display_always=0x7f090001;
-        public static final int editText1=0x7f090025;
-        public static final int editText2=0x7f090023;
-        public static final int inline=0x7f09000d;
-        public static final int large=0x7f090003;
-        public static final int left=0x7f090010;
-        public static final int loginButton1=0x7f09001e;
-        public static final int messenger_send_button=0x7f090019;
-        public static final int never_display=0x7f090002;
-        public static final int normal=0x7f090004;
-        public static final int open_graph=0x7f090006;
-        public static final int page=0x7f090007;
-        public static final int quickContactBadge1=0x7f090021;
-        public static final int radioButton1=0x7f090020;
-        public static final int radioButton2=0x7f09001f;
-        public static final int right=0x7f090011;
-        public static final int small=0x7f090005;
-        public static final int spinner1=0x7f090022;
-        public static final int spinner2=0x7f090024;
-        public static final int standard=0x7f09000b;
-        public static final int textView1=0x7f09001b;
-        public static final int textView2=0x7f09001a;
-        public static final int top=0x7f09000e;
-        public static final int unknown=0x7f090008;
+        public static final int action_settings=0x7f0a0037;
+        public static final int automatic=0x7f0a0000;
+        public static final int bottom=0x7f0a000c;
+        public static final int box_count=0x7f0a0009;
+        public static final int btCancelar=0x7f0a002b;
+        public static final int btConfirmarRegistro=0x7f0a002a;
+        public static final int btDeslogar=0x7f0a0029;
+        public static final int btLogin=0x7f0a001c;
+        public static final int btRegistrar=0x7f0a001d;
+        public static final int button=0x7f0a000a;
+        public static final int center=0x7f0a000f;
+        public static final int com_facebook_body_frame=0x7f0a0014;
+        public static final int com_facebook_button_xout=0x7f0a0016;
+        public static final int com_facebook_fragment_container=0x7f0a0012;
+        public static final int com_facebook_login_activity_progress_bar=0x7f0a0013;
+        public static final int com_facebook_tooltip_bubble_view_bottom_pointer=0x7f0a0018;
+        public static final int com_facebook_tooltip_bubble_view_text_body=0x7f0a0017;
+        public static final int com_facebook_tooltip_bubble_view_top_pointer=0x7f0a0015;
+        public static final int display_always=0x7f0a0001;
+        public static final int inline=0x7f0a000d;
+        public static final int large=0x7f0a0003;
+        public static final int left=0x7f0a0010;
+        public static final int messenger_send_button=0x7f0a0019;
+        public static final int never_display=0x7f0a0002;
+        public static final int normal=0x7f0a0004;
+        public static final int open_graph=0x7f0a0006;
+        public static final int page=0x7f0a0007;
+        public static final int quickContactBadge1=0x7f0a002f;
+        public static final int rbAluno=0x7f0a0031;
+        public static final int rbExAluno=0x7f0a0032;
+        public static final int rbgTypeAluno=0x7f0a0030;
+        public static final int right=0x7f0a0011;
+        public static final int small=0x7f0a0005;
+        public static final int spCampus=0x7f0a002e;
+        public static final int spCurso=0x7f0a002d;
+        public static final int spPeriodo=0x7f0a002c;
+        public static final int standard=0x7f0a000b;
+        public static final int textView1=0x7f0a001b;
+        public static final int textView2=0x7f0a001a;
+        public static final int textView3=0x7f0a001f;
+        public static final int textView4=0x7f0a0020;
+        public static final int textView5=0x7f0a0021;
+        public static final int textView6=0x7f0a0022;
+        public static final int top=0x7f0a000e;
+        public static final int tvAlunoCpf=0x7f0a0035;
+        public static final int tvAlunoEmail=0x7f0a0036;
+        public static final int tvAlunoNome=0x7f0a0034;
+        public static final int tvAlunoRegistro=0x7f0a0033;
+        public static final int tvCPF=0x7f0a0026;
+        public static final int tvCampus=0x7f0a0023;
+        public static final int tvCurso=0x7f0a0027;
+        public static final int tvNome=0x7f0a0025;
+        public static final int tvPeriodo=0x7f0a0028;
+        public static final int tvRegistroAcademico=0x7f0a0024;
+        public static final int tvUsuarioEmail=0x7f0a001e;
+        public static final int unknown=0x7f0a0008;
     }
     public static final class layout {
         public static final int com_facebook_activity_layout=0x7f030000;
@@ -261,13 +281,14 @@ containing a value of this type.
         public static final int messenger_button_send_white_round=0x7f030007;
         public static final int messenger_button_send_white_small=0x7f030008;
         public static final int tela_main=0x7f030009;
-        public static final int tela_registro=0x7f03000a;
+        public static final int tela_perfil=0x7f03000a;
+        public static final int tela_registro=0x7f03000b;
     }
     public static final class menu {
-        public static final int tela_main=0x7f080000;
+        public static final int tela_main=0x7f090000;
+        public static final int tela_perfil=0x7f090001;
     }
     public static final class string {
-        public static final int APP_ID=0x7f040015;
         public static final int action_settings=0x7f040013;
         public static final int app_name=0x7f040011;
         public static final int com_facebook_image_download_unknown_error=0x7f04000e;
@@ -289,6 +310,11 @@ containing a value of this type.
         public static final int facebook_app_id=0x7f040014;
         public static final int hello_world=0x7f040012;
         public static final int messenger_send_button_text=0x7f040000;
+        /**  <string name="APP_ID">1508316562820229</string> 
+         */
+        public static final int prompt_campus=0x7f040015;
+        public static final int prompt_curso=0x7f040016;
+        public static final int prompt_periodo=0x7f040017;
     }
     public static final class style {
         /** 

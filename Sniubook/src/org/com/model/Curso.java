@@ -12,24 +12,18 @@ import java.util.ArrayList;
  * @author SAMSUNG
  */
 public class Curso {
-    private int codigo;
     private String nome;
     private int duracao;
     private String campus;
     private String turno;
     private ArrayList<Periodo> listaPeriodos;
     
-	public Curso(int codigo, String nome, int duracao, String campus, String turno, ArrayList<Periodo> listaPeriodos) {
-		this.codigo = codigo;
+	public Curso(String nome, int duracao, String campus, String turno, ArrayList<Periodo> listaPeriodos) {
 		this.nome = nome;
 		this.duracao = duracao;
 		this.campus = campus;
 		this.turno = turno;
 		this.listaPeriodos = listaPeriodos;
-	}
-
-	public int getCodigo() {
-		return codigo;
 	}
 
 	public String getNome() {

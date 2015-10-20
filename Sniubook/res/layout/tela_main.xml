@@ -31,26 +31,31 @@
         android:id="@+id/btLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="118dp"
         android:text="Fazer Login" />
 
     <Button
         android:id="@+id/btRegistrar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btLogin"
         android:layout_below="@+id/btLogin"
-        android:layout_centerHorizontal="true"
         android:text="Registrar" />
 
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/loginButton1"
+    <EditText
+        android:id="@+id/tvUsuarioEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btRegistrar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/btRegistrar"
-        android:layout_marginBottom="51dp"
-        android:text="LoginButton" />
+        android:layout_alignLeft="@+id/btLogin"
+        android:layout_alignRight="@+id/btLogin"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
 
 </RelativeLayout>

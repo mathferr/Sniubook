@@ -10,18 +10,12 @@ package org.com.model;
  * @author SAMSUNG
  */
 public class Campus {
-    private int codigo;
     private String nome;
     private Endereco endereco;
 
-    public Campus(int codigo, String nome, Endereco endereco) {
-        this.codigo = codigo;
+    public Campus(String nome, Endereco endereco) {
         this.nome = nome;
         this.endereco = endereco;
-    }
-
-    public int getCodigo() {
-        return codigo;
     }
 
     public String getNome() {

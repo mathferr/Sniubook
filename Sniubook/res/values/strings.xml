@@ -4,7 +4,31 @@
     <string name="app_name">Sniubook</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="facebook_app_id">Facebook App ID</string>
-    <string name="APP_ID">1508316562820229</string>
+    <string name="facebook_app_id">1508316562820229</string>
+    <!-- <string name="APP_ID">1508316562820229</string> -->
+    <string name="prompt_campus">Escolha seu Campus</string>
+
+    <string-array name="Campus">
+        <item>Escolha seu Campus</item>
+        <item>Antonio Carlos</item>
+        <item>Cristiano Machado</item>
+        <item>Estoril</item>
+    </string-array>
+
+    <string name="prompt_curso">Escolha seu Curso</string>
+
+    <string-array name="Curso">
+        <item>Escolha seu Curso</item>
+        <item>Ciência da Computação</item>
+        <item>Sistemas de Informação</item>
+    </string-array>
+
+    <string name="prompt_periodo">Escolha seu Periodo</string>
+
+    <string-array name="Periodo">
+        <item>Escolha seu Periodo</item>
+        <item>1A</item>
+        <item>1B</item>
+    </string-array>
 
 </resources>

@@ -11,15 +11,31 @@ package org.com.model;
  */
 public class Aluno extends Pessoa {
     private int registroAcademico;
+    private String curso;
+    private String periodo;
+    private String campus;
 
-    public Aluno(int registroAcademico, String nome, int cpf, String email) {
-        super(nome, cpf, email);
-        this.registroAcademico = registroAcademico;
-    }
+    public Aluno(String nome, String cpf, String email, int registroAcademico, String curso, String periodo, String campus) {
+		super(nome, cpf, email);
+		this.registroAcademico = registroAcademico;
+		this.curso = curso;
+		this.periodo = periodo;
+		this.campus = campus;
+	}
 
-    public int getRegistroAcademico() {
+	public int getRegistroAcademico() {
         return registroAcademico;
     }
     
+    public String getCurso() {
+		return curso;
+	}
     
+    public String getCampus() {
+		return campus;
+	}
+    
+    public String getPeriodo() {
+		return periodo;
+	}
 }
