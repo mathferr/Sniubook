@@ -90,7 +90,7 @@ public class TelaMainActivity extends Activity {
             BancoDados.execSQL(sql);
 //            exibirMensagem("Sucesso", "Não esqueçe daquele LIKE no app");
         } catch (Exception erro) {
-            exibirMensagem("Erro", "Erro ao criar a tabela curso!\n" + erro);
+            exibirMensagem("Erro", "Ocorreu um erro na ao iniciar o Banco de Dados\n" + erro);
         } finally {
             BancoDados.close();
         }
@@ -111,7 +111,7 @@ public class TelaMainActivity extends Activity {
 	    		TelaMainActivity.this.startActivity(proximaTela);
 	    		TelaMainActivity.this.finish();
 	    	} else {
-	    		exibirMensagem("Usuario não existe", "O endereço de e-mail não está cadastrado.");
+	    		exibirMensagem("Erro", "O endereço de e-mail não está cadastrado.");
 	    	}
     	} catch (Exception erro) {
     		exibirMensagem("Erro", "Erro ao realizar login\n" + erro.toString());

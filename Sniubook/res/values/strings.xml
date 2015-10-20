@@ -9,7 +9,7 @@
     <string name="prompt_campus">Escolha seu Campus</string>
 
     <string-array name="Campus">
-        <item>Escolha seu Campus</item>
+        <item>(Escolha seu Campus)</item>
         <item>Antonio Carlos</item>
         <item>Cristiano Machado</item>
         <item>Estoril</item>
@@ -18,7 +18,7 @@
     <string name="prompt_curso">Escolha seu Curso</string>
 
     <string-array name="Curso">
-        <item>Escolha seu Curso</item>
+        <item>(Escolha seu Curso)</item>
         <item>Ciência da Computação</item>
         <item>Sistemas de Informação</item>
     </string-array>
@@ -26,9 +26,15 @@
     <string name="prompt_periodo">Escolha seu Periodo</string>
 
     <string-array name="Periodo">
-        <item>Escolha seu Periodo</item>
+        <item>(Escolha seu Periodo)</item>
         <item>1A</item>
         <item>1B</item>
+        <item>2A</item>
+        <item>2B</item>
+        <item>3A</item>
+        <item>3B</item>
+        <item>4A</item>
+        <item>4B</item>
     </string-array>
 
 </resources>

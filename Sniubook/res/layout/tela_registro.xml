@@ -78,7 +78,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/quickContactBadge1"
-        android:ems="10" />
+        android:ems="10"
+        android:hint="Digite seu registro acadêmico" >
+
+        <requestFocus />
+        <requestFocus />
+
+    </EditText>
 
     <EditText
         android:id="@+id/tvAlunoNome"
@@ -87,7 +93,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvAlunoRegistro"
-        android:ems="10" />
+        android:ems="10"
+        android:hint="Digite seu nome completo" />
 
     <EditText
         android:id="@+id/tvAlunoCpf"
@@ -96,9 +103,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvAlunoNome"
-        android:ems="10" >
-
-        <requestFocus />
+        android:ems="10"
+        android:hint="Digite seu CPF" >
     </EditText>
 
     <Button
@@ -113,10 +119,11 @@
         android:id="@+id/tvAlunoEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/spCampus"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvAlunoCpf"
         android:ems="10"
+        android:hint="Digite seu E-mail"
         android:inputType="textEmailAddress" />
 
 </RelativeLayout>
