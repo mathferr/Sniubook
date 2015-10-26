@@ -62,13 +62,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="56dp"
             android:layout_marginTop="21dp"
-            android:text="Aluno" />
+            android:text="Aluno" 
+            android:onClick="estadoRadioButtonAluno"/>
 
         <RadioButton
             android:id="@+id/rbExAluno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ex-Aluno" />
+            android:text="Ex-Aluno"
+            android:onClick="estadoRadioButtonAluno" />
     </RadioGroup>
 
     <EditText

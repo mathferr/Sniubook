@@ -78,6 +78,6 @@ public class TelaPerfil extends Activity {
 	    tvCPF.setText(perfil.getCpf() + "");
 		tvCurso.setText(perfil.getCurso() + "");
 		tvPeriodo.setText(perfil.getPeriodo() + "");
-		tvCampus.setText(perfil.getCampus() + "");
+//		tvCampus.setText(perfil.getCampus() + "");
 	}
 }

@@ -37,4 +37,7 @@
         <item>4B</item>
     </string-array>
 
+    <string name="title_activity_tela_avaliar_curso">TelaAvaliarCurso</string>
+    <string name="title_activity_tela_principal">TelaPrincipal</string>
+
 </resources>

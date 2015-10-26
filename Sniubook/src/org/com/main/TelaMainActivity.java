@@ -4,6 +4,7 @@ import org.com.model.Aluno;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -42,7 +43,7 @@ public class TelaMainActivity extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				fazerLogin(tvUsuarioEmail.getText().toString());
+//				fazerLogin(tvUsuarioEmail.getText().toString());
 			}
 		});
 		
@@ -57,7 +58,6 @@ public class TelaMainActivity extends Activity {
 		});
 		
 		//img = (ImageView) findViewById(R.id.prof_pick);
-		
 		
 	}
 
@@ -83,40 +83,79 @@ public class TelaMainActivity extends Activity {
     public void criarBanco() {
         try {
             BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-//            String sql = "DROP TABLE aluno";
-            String sql = "CREATE TABLE IF NOT EXISTS aluno (_id INTEGER PRIMARY KEY, nome TEXT, cpf TEXT, email TEXT, "
-            		+ "curso TEXT, "
-            		+ "campus TEXT, periodo TEXT)";
+            
+//          String sql = "DROP TABLE curso";
+            String sql = "CREATE TABLE IF NOT EXISTS curso (codigo TEXT PRIMARY KEY, nome TEXT, duracao INTEGER, "
+            		+ "turno TEXT)";
             BancoDados.execSQL(sql);
-//            exibirMensagem("Sucesso", "Não esqueçe daquele LIKE no app");
+            
+//          String sql = "DROP TABLE campus";
+            sql = "CREATE TABLE IF NOT EXISTS campus (codigo TEXT PRIMARY KEY, nome TEXT, lista_curso TEXT)";
+            BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE aluno";
+            sql = "CREATE TABLE IF NOT EXISTS aluno (registro_academico INTEGER PRIMARY KEY, nome TEXT, cpf INT8, "
+            		+ "email TEXT, campus TEXT, "
+            		+ "turma TEXT, periodo TEXT, codigo_curso TEXT)";
+            BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE ex_aluno";
+            sql = "CREATE TABLE IF NOT EXISTS ex_aluno (cpf INT8 PRIMARY KEY, nome TEXT, "
+            		+ "email TEXT, campus TEXT, "
+            		+ "codigo_curso TEXT)";
+            BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE disciplina";
+            sql = "CREATE TABLE IF NOT EXISTS disciplina (codigo INTEGER PRIMARY KEY, nome TEXT, carga_horaria INTEGER)";
+            BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE professor";
+            sql = "CREATE TABLE IF NOT EXISTS professor (registro_profissional INTEGER PRIMARY KEY, nome TEXT, cpf INT8, "
+            		+ "email TEXT)";
+            BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE curso_disciplina";
+            sql = "CREATE TABLE IF NOT EXISTS curso_disciplina (codigo_curso_fk TEXT, "
+            		+ "codigo_disciplina_fk INTEGER)";
+            BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE professor_disciplina";
+            sql = "CREATE TABLE IF NOT EXISTS professor_disciplina (registro_profissional_fk INTEGER, "
+            		+ "codigo_disciplina_fk INTEGER)";
+            BancoDados.execSQL(sql);
+            
         } catch (Exception erro) {
-            exibirMensagem("Erro", "Ocorreu um erro na ao iniciar o Banco de Dados\n" + erro);
+            exibirMensagem("Erro", "Ocorreu um erro na ao iniciar o Banco de Dados\n" + erro.toString());
         } finally {
             BancoDados.close();
         }
     }
     
-    public void fazerLogin(String email) {
-    	try{
-	    	BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-	    	String sql = "SELECT * FROM aluno WHERE email LIKE '" + email + "'";
-//	    	  String[] colunas = new String[]{"_id", "nome", "cpf", "email", "curso", "campus", "periodo"};
-	    	Cursor cursor = BancoDados.rawQuery(sql, null);
-	    	if (cursor.getCount() > 0) {
-	    		cursor.moveToNext();
-	    		perfil = new Aluno(cursor.getString(1), cursor.getString(2), email, cursor.getInt(0),
-	    				cursor.getString(4), cursor.getString(5), cursor.getString(6));
-	    		BancoDados.close();
-	    		Intent proximaTela = new Intent(TelaMainActivity.this, TelaPerfil.class);
-	    		TelaMainActivity.this.startActivity(proximaTela);
-	    		TelaMainActivity.this.finish();
-	    	} else {
-	    		exibirMensagem("Erro", "O endereço de e-mail não está cadastrado.");
-	    	}
+    public void fazerLogin(String login) {
+    	try {
+    		BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+    		String sql = "SELECT * FROM aluno WHERE registro_academico = " + login;
+    		Cursor cursor = BancoDados.rawQuery(sql, null);
+    		if (cursor.getCount() > 0) {
+    			Intent proximaTela = new Intent(TelaMainActivity.this, TelaPerfil.class);
+    			BancoDados.close();
+    			TelaMainActivity.this.startActivity(proximaTela);
+    			TelaMainActivity.this.finish();
+    		} else {
+    			sql = "SELECT * FROM ex_aluno WHERE cpf = " + login;
+    			cursor = BancoDados.rawQuery(sql, null);
+    			if (cursor.getCount() > 0) {
+    				Intent proximaTela = new Intent(TelaMainActivity.this, TelaPerfil.class);
+        			BancoDados.close();
+        			TelaMainActivity.this.startActivity(proximaTela);
+        			TelaMainActivity.this.finish();
+    			} else {
+    				exibirMensagem("Erro", "Login não existente!\nSe você é novo aqui registre-se para poder logar.");
+    			}
+    		}
     	} catch (Exception erro) {
-    		exibirMensagem("Erro", "Erro ao realizar login\n" + erro.toString());
-       	}
-    	
+    		exibirMensagem("Erro", "Erro ao realizar login.\n" + erro.toString());
+    	}
     }
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

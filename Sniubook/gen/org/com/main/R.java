@@ -280,13 +280,17 @@ containing a value of this type.
         public static final int messenger_button_send_white_large=0x7f030006;
         public static final int messenger_button_send_white_round=0x7f030007;
         public static final int messenger_button_send_white_small=0x7f030008;
-        public static final int tela_main=0x7f030009;
-        public static final int tela_perfil=0x7f03000a;
-        public static final int tela_registro=0x7f03000b;
+        public static final int tela_avaliar_curso=0x7f030009;
+        public static final int tela_main=0x7f03000a;
+        public static final int tela_perfil=0x7f03000b;
+        public static final int tela_principal=0x7f03000c;
+        public static final int tela_registro=0x7f03000d;
     }
     public static final class menu {
-        public static final int tela_main=0x7f090000;
-        public static final int tela_perfil=0x7f090001;
+        public static final int tela_avaliar_curso=0x7f090000;
+        public static final int tela_main=0x7f090001;
+        public static final int tela_perfil=0x7f090002;
+        public static final int tela_principal=0x7f090003;
     }
     public static final class string {
         public static final int action_settings=0x7f040013;
@@ -315,6 +319,8 @@ containing a value of this type.
         public static final int prompt_campus=0x7f040015;
         public static final int prompt_curso=0x7f040016;
         public static final int prompt_periodo=0x7f040017;
+        public static final int title_activity_tela_avaliar_curso=0x7f040018;
+        public static final int title_activity_tela_principal=0x7f040019;
     }
     public static final class style {
         /** 

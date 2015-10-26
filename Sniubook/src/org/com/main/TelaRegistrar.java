@@ -5,23 +5,23 @@ import org.com.model.Aluno;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.Cursor;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 public class TelaRegistrar extends Activity {
 	
 	Button btCancelar, btConfirmar;
 	EditText tvAlunoRegistro, tvAlunoNome, tvAlunoCpf, tvAlunoEmail;
 	Spinner spCurso, spPeriodo, spCampus;
+	RadioButton rbAluno, rbExAluno;
 	
 	SQLiteDatabase BancoDados;
 
@@ -30,7 +30,7 @@ public class TelaRegistrar extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.tela_registro);
 		
-		inicializarAplicacao();
+		inicializarComponentesGraficos();
 		
 		btCancelar.setOnClickListener(new OnClickListener() {
 			
@@ -49,21 +49,40 @@ public class TelaRegistrar extends Activity {
 				if (!tvAlunoNome.getText().toString().equals("") ||
 						!tvAlunoCpf.getText().toString().equals("") ||
 						!tvAlunoEmail.getText().toString().equals("") ||
-						!tvAlunoRegistro.getText().toString().equals("") ||
+						(!tvAlunoRegistro.getText().toString().equals("") && rbAluno.isChecked()) ||
 						!spCurso.getSelectedItem().toString().startsWith("(") ||
-						!spPeriodo.getSelectedItem().toString().startsWith("(") ||
+						(!spPeriodo.getSelectedItem().toString().startsWith("(") && rbAluno.isChecked()) ||
 						!spCampus.getSelectedItem().toString().startsWith("(")
 					) {
-					Aluno aluno = new Aluno(
-							tvAlunoNome.getText().toString(), 
-							tvAlunoCpf.getText().toString(),
-							tvAlunoEmail.getText().toString(),
-							Integer.parseInt(tvAlunoRegistro.getText().toString()),
-							spCurso.getSelectedItem().toString(),
-							spPeriodo.getSelectedItem().toString(),
-							spCampus.getSelectedItem().toString()
-							);
-					registrarAluno(aluno);
+					
+					BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+					String sql = "SELECT codigo FROM curso WHERE nome = "
+							+ "'" + spCurso.getSelectedItem().toString().toUpperCase() + "' AND campus LIKE "
+							+ "'%" + spCampus.getSelectedItem().toString().substring(0, 3).toUpperCase() + "%'";
+					Cursor cursor = BancoDados.rawQuery(sql, null);
+					if (cursor.getCount() > 0) {
+						cursor.moveToFirst();
+						
+						String turma = cursor.getString(0) + spPeriodo.getSelectedItem().toString() + "-"
+								+ spCampus.getSelectedItem().toString().substring(0,3);
+						
+						Aluno aluno = new Aluno(
+								tvAlunoNome.getText().toString(), 
+								tvAlunoCpf.getText().toString(), 
+								tvAlunoEmail.getText().toString(), 
+								Integer.parseInt(tvAlunoRegistro.getText().toString()), 
+								cursor.getString(0),
+								turma,
+								spPeriodo.getSelectedItem().toString(), 
+								spCampus.getSelectedItem().toString().substring(0,3));
+						
+						if (rbAluno.isChecked()) {
+							registrarAluno(aluno);
+						} else if (rbExAluno.isChecked()) {
+							registrarExAluno(aluno);
+						}
+						
+					}
 				} else {
 					exibirMensagem("Erro", "Todos os campos devem ser preechidos");
 				}
@@ -86,40 +105,23 @@ public class TelaRegistrar extends Activity {
 	}
 	
 	public void registrarAluno(Aluno aluno) {
-		try{
+		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);
-			String search = "SELECT * FROM aluno WHERE email = '" + aluno.getEmail() + "'";
+			String search = "SELECT * FROM aluno WHERE registro_academico = " + aluno.getRegistroAcademico();
 			Cursor cursor = BancoDados.rawQuery(search, null);
 			if (cursor.getCount() > 0) {
-				exibirMensagem("Erro", "O endereço de email já está cadastrado no sistema.");
+				exibirMensagem("Erro", "O Registro Academico já está cadastrado no sistema.");
 				BancoDados.close();
 				return;
-			} else {
-				search = "SELECT * FROM aluno WHERE _id = " + aluno.getRegistroAcademico();
-				cursor = BancoDados.rawQuery(search, null);
-				if (cursor.getCount() > 0) {
-					exibirMensagem("Erro", "Este Registro Acadêmico já está cadastrado no sistema.");
-					BancoDados.close();
-					return;
-				} else {
-					search = "SELECT * FROM aluno WHERE cpf = '" + aluno.getCpf() + "'";
-					cursor = BancoDados.rawQuery(search, null);
-					if (cursor.getCount() > 0) {
-						exibirMensagem("Erro", "Este CPF já está cadastrado no sistema.");
-						BancoDados.close();
-						return;
-					}
-				}
-			}
-			
-			String sql = "INSERT INTO aluno (_id, nome, cpf, email, curso, campus, periodo) VALUES "
+			}			
+			String sql = "INSERT INTO aluno (registro_academico, nome, cpf, email, curso, turma, periodo, campus) VALUES "
 					+ "(" + aluno.getRegistroAcademico() + ", "
 					+ "'" + aluno.getNome() + "', '" + aluno.getCpf() + "', '" + aluno.getEmail() + "', "
-					+ "'" + aluno.getCurso() + "', '" + aluno.getCampus() + "', "
-					+ "'" + aluno.getPeriodo() + "')";
+					+ "'" + aluno.getCurso() + "', '" + aluno.getTurma() + "', "
+					+ "'" + aluno.getPeriodo() + "', '" + aluno.getCampus() + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Cadastro realizado com sucesso.");
-			
+
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Erro ao cadastrar aluno.\n" + erro.toString());
 		} finally {
@@ -127,7 +129,32 @@ public class TelaRegistrar extends Activity {
 		}
 	}
 	
-	public void inicializarAplicacao() {
+	public void registrarExAluno(Aluno aluno) {
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);
+			String search = "SELECT * FROM ex_aluno WHERE cpf = " + aluno.getCpf();
+			Cursor cursor = BancoDados.rawQuery(search, null);
+			if (cursor.getCount() > 0) {
+				exibirMensagem("Erro", "O CPF já está cadastrado no sistema.");
+				BancoDados.close();
+				return;
+			}	
+			String sql = "INSERT INTO ex_aluno (cpf, nome, email, curso, campus) VALUES "
+					+ "(" + aluno.getCpf() + ", "
+					+ "'" + aluno.getNome() + "', '" + aluno.getEmail() + "', "
+					+ "'" + aluno.getCurso() + "', "
+					+ "'" + aluno.getCampus() + "')";
+			BancoDados.execSQL(sql);
+			exibirMensagem("Sucesso", "Cadastro realizado com sucesso.");
+			
+		} catch (Exception erro) {
+			exibirMensagem("Erro", "Erro ao cadastrar o ex-aluno");
+		} finally {
+			BancoDados.close();
+		}
+	}
+	
+	public void inicializarComponentesGraficos() {
 		btCancelar = (Button) findViewById(R.id.btCancelar);
 		btConfirmar = (Button) findViewById(R.id.btConfirmarRegistro);
 		tvAlunoRegistro = (EditText) findViewById(R.id.tvAlunoRegistro);
@@ -137,6 +164,28 @@ public class TelaRegistrar extends Activity {
 		spCurso = (Spinner) findViewById(R.id.spCurso);
 		spPeriodo = (Spinner) findViewById(R.id.spPeriodo);
 		spCampus = (Spinner) findViewById(R.id.spCampus);
+		rbAluno = (RadioButton) findViewById(R.id.rbAluno);
+		rbExAluno = (RadioButton) findViewById(R.id.rbExAluno);
+	}
+	
+	public void estadoRadioButtonAluno(View view) {
+		boolean checked = ((RadioButton) view).isChecked();
+		
+		switch (view.getId()) {
+		case R.id.rbAluno:
+			if (checked) {
+				spPeriodo.setEnabled(true);
+			}
+			break;
+		case R.id.rbExAluno:
+			if (checked) {
+				spPeriodo.setEnabled(false);
+			}
+			break;
+		default:
+			exibirMensagem("Erro", "Você deve selecionar Aluno ou Ex-Aluno.\n");
+			break;
+		}
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

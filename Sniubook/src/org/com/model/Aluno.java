@@ -12,13 +12,15 @@ package org.com.model;
 public class Aluno extends Pessoa {
     private int registroAcademico;
     private String curso;
+    private String turma;
     private String periodo;
     private String campus;
 
-    public Aluno(String nome, String cpf, String email, int registroAcademico, String curso, String periodo, String campus) {
+    public Aluno(String nome, String cpf, String email, int registroAcademico, String curso, String turma, String periodo, String campus) {
 		super(nome, cpf, email);
 		this.registroAcademico = registroAcademico;
 		this.curso = curso;
+		this.turma = turma;
 		this.periodo = periodo;
 		this.campus = campus;
 	}
@@ -29,13 +31,18 @@ public class Aluno extends Pessoa {
     
     public String getCurso() {
 		return curso;
+    }
+    
+    public String getTurma() {
+		return turma;
+	}
+    
+    public String getPeriodo() {
+		return periodo;
 	}
     
     public String getCampus() {
 		return campus;
 	}
     
-    public String getPeriodo() {
-		return periodo;
-	}
 }

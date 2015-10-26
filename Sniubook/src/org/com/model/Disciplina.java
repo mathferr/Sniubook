@@ -15,13 +15,11 @@ public class Disciplina {
     private int codigo;
     private String nome;
     private int cargaHoraria;
-    private ArrayList<Professor> listaProfessores;
 
-    public Disciplina(int codigo, String nome, int cargaHoraria, ArrayList<Professor> listaProfessores) {
+    public Disciplina(int codigo, String nome, int cargaHoraria) {
         this.codigo = codigo;
         this.nome = nome;
         this.cargaHoraria = cargaHoraria;
-        this.listaProfessores = listaProfessores;
     }
 
     public int getCodigo() {
@@ -35,11 +33,5 @@ public class Disciplina {
     public int getCargaHoraria() {
         return cargaHoraria;
     }
-
-    public ArrayList<Professor> getListaProfessores() {
-        return listaProfessores;
-    }
-    
-    
     
 }

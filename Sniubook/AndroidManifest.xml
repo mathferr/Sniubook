@@ -35,6 +35,14 @@
 
         <activity android:name=".TelaPerfil" >
         </activity>
+        <activity
+            android:name=".TelaAvaliarCurso"
+            android:label="@string/title_activity_tela_avaliar_curso" >
+        </activity>
+        <activity
+            android:name=".TelaPrincipal"
+            android:label="@string/title_activity_tela_principal" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
