@@ -12,6 +12,7 @@ public final class R {
         public static final int Campus=0x7f080000;
         public static final int Curso=0x7f080001;
         public static final int Periodo=0x7f080002;
+        public static final int Turno=0x7f080003;
     }
     public static final class attr {
         /** <p>Must be one of the following constant values.</p>
@@ -213,15 +214,20 @@ containing a value of this type.
         public static final int ocupador=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f0a0037;
+        public static final int action_settings=0x7f0a0045;
         public static final int automatic=0x7f0a0000;
         public static final int bottom=0x7f0a000c;
         public static final int box_count=0x7f0a0009;
-        public static final int btCancelar=0x7f0a002b;
-        public static final int btConfirmarRegistro=0x7f0a002a;
-        public static final int btDeslogar=0x7f0a0029;
-        public static final int btLogin=0x7f0a001c;
-        public static final int btRegistrar=0x7f0a001d;
+        public static final int btAvaliarCurso=0x7f0a0033;
+        public static final int btCancelar=0x7f0a0039;
+        public static final int btConfirmarRateCurso=0x7f0a001d;
+        public static final int btConfirmarRegistro=0x7f0a0038;
+        public static final int btDeslogar=0x7f0a0030;
+        public static final int btLogin=0x7f0a0023;
+        public static final int btLogout=0x7f0a0037;
+        public static final int btRegistrar=0x7f0a0025;
+        public static final int btTelaPerfil=0x7f0a0034;
+        public static final int btVoltarAvaliarCurso=0x7f0a001f;
         public static final int button=0x7f0a000a;
         public static final int center=0x7f0a000f;
         public static final int com_facebook_body_frame=0x7f0a0014;
@@ -232,43 +238,52 @@ containing a value of this type.
         public static final int com_facebook_tooltip_bubble_view_text_body=0x7f0a0017;
         public static final int com_facebook_tooltip_bubble_view_top_pointer=0x7f0a0015;
         public static final int display_always=0x7f0a0001;
+        public static final int imageView1=0x7f0a0021;
         public static final int inline=0x7f0a000d;
         public static final int large=0x7f0a0003;
         public static final int left=0x7f0a0010;
+        public static final int lvCurso=0x7f0a001c;
         public static final int messenger_send_button=0x7f0a0019;
         public static final int never_display=0x7f0a0002;
         public static final int normal=0x7f0a0004;
         public static final int open_graph=0x7f0a0006;
         public static final int page=0x7f0a0007;
-        public static final int quickContactBadge1=0x7f0a002f;
-        public static final int rbAluno=0x7f0a0031;
-        public static final int rbExAluno=0x7f0a0032;
-        public static final int rbgTypeAluno=0x7f0a0030;
+        public static final int quickContactBadge1=0x7f0a0035;
+        public static final int ratingCurso=0x7f0a001e;
+        public static final int ratingCursoGeral=0x7f0a001b;
+        public static final int rbAluno=0x7f0a003b;
+        public static final int rbExAluno=0x7f0a003c;
+        public static final int rbgTypeAluno=0x7f0a003a;
         public static final int right=0x7f0a0011;
         public static final int small=0x7f0a0005;
-        public static final int spCampus=0x7f0a002e;
-        public static final int spCurso=0x7f0a002d;
-        public static final int spPeriodo=0x7f0a002c;
+        public static final int spCampus=0x7f0a0041;
+        public static final int spCurso=0x7f0a0043;
+        public static final int spPeriodo=0x7f0a0042;
+        public static final int spTurno=0x7f0a0044;
         public static final int standard=0x7f0a000b;
-        public static final int textView1=0x7f0a001b;
-        public static final int textView2=0x7f0a001a;
-        public static final int textView3=0x7f0a001f;
-        public static final int textView4=0x7f0a0020;
-        public static final int textView5=0x7f0a0021;
-        public static final int textView6=0x7f0a0022;
+        public static final int textView1=0x7f0a0020;
+        public static final int textView4=0x7f0a0027;
+        public static final int textView5=0x7f0a0028;
+        public static final int textView6=0x7f0a0029;
+        public static final int textView7=0x7f0a0031;
         public static final int top=0x7f0a000e;
-        public static final int tvAlunoCpf=0x7f0a0035;
-        public static final int tvAlunoEmail=0x7f0a0036;
-        public static final int tvAlunoNome=0x7f0a0034;
-        public static final int tvAlunoRegistro=0x7f0a0033;
-        public static final int tvCPF=0x7f0a0026;
-        public static final int tvCampus=0x7f0a0023;
-        public static final int tvCurso=0x7f0a0027;
-        public static final int tvNome=0x7f0a0025;
-        public static final int tvPeriodo=0x7f0a0028;
-        public static final int tvRegistroAcademico=0x7f0a0024;
-        public static final int tvUsuarioEmail=0x7f0a001e;
+        public static final int tvAlunoCpf=0x7f0a003f;
+        public static final int tvAlunoEmail=0x7f0a0040;
+        public static final int tvAlunoNome=0x7f0a003e;
+        public static final int tvAlunoRegistro=0x7f0a003d;
+        public static final int tvCPF=0x7f0a002d;
+        public static final int tvCampus=0x7f0a002a;
+        public static final int tvCurso=0x7f0a002e;
+        public static final int tvNome=0x7f0a002c;
+        public static final int tvNomeCursoAvaliacao=0x7f0a001a;
+        public static final int tvPeriodo=0x7f0a002f;
+        public static final int tvPrincipalCampus=0x7f0a0024;
+        public static final int tvPrincipalCurso=0x7f0a0026;
+        public static final int tvRegistroAcademico=0x7f0a002b;
+        public static final int tvTurma=0x7f0a0032;
+        public static final int tvUsuarioLogin=0x7f0a0022;
         public static final int unknown=0x7f0a0008;
+        public static final int view1=0x7f0a0036;
     }
     public static final class layout {
         public static final int com_facebook_activity_layout=0x7f030000;
@@ -319,8 +334,9 @@ containing a value of this type.
         public static final int prompt_campus=0x7f040015;
         public static final int prompt_curso=0x7f040016;
         public static final int prompt_periodo=0x7f040017;
-        public static final int title_activity_tela_avaliar_curso=0x7f040018;
-        public static final int title_activity_tela_principal=0x7f040019;
+        public static final int prompt_turno=0x7f040018;
+        public static final int title_activity_tela_avaliar_curso=0x7f040019;
+        public static final int title_activity_tela_principal=0x7f04001a;
     }
     public static final class style {
         /** 

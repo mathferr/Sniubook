@@ -9,37 +9,60 @@
     tools:context="org.com.main.TelaAvaliarCurso" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvNomeCursoAvaliacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
         android:text="Nome Curso"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/btConfirmarAvaliacaoCurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="Confirmar" />
-
     <RatingBar
-        android:id="@+id/rbCurso"
+        android:id="@+id/ratingCursoGeral"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btConfirmarAvaliacaoCurso"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="13dp" />
+        android:layout_below="@+id/tvNomeCursoAvaliacao"
+        android:layout_centerHorizontal="true" />
 
     <ListView
         android:id="@+id/lvCurso"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_above="@+id/rbCurso"
-        android:layout_marginBottom="21dp" >
+        android:layout_alignLeft="@+id/btConfirmarRateCurso"
+        android:layout_below="@+id/ratingCursoGeral" >
     </ListView>
+
+    <Button
+        android:id="@+id/btConfirmarRateCurso"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingCurso"
+        android:layout_centerHorizontal="true"
+        android:text="Confirmar" />
+
+    <Button
+        android:id="@+id/btVoltarAvaliarCurso"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btConfirmarRateCurso"
+        android:layout_centerHorizontal="true"
+        android:text="Voltar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/lvCurso"
+        android:layout_below="@+id/lvCurso"
+        android:layout_marginTop="15dp"
+        android:text="Avalie:"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <RatingBar
+        android:id="@+id/ratingCurso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/lvCurso"
+        android:layout_below="@+id/lvCurso" />
 
 </RelativeLayout>

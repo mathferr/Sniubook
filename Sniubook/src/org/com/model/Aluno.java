@@ -17,7 +17,8 @@ public class Aluno extends Pessoa {
     private String campus;
     private String turno;
 
-    public Aluno(String nome, String cpf, String email, int registroAcademico, String curso, String turma, String periodo, String campus, String turno) {
+
+    public Aluno(int registroAcademico, String nome, String cpf, String email, String campus, String turma, String periodo, String curso, String turno) {
 		super(nome, cpf, email);
 		this.registroAcademico = registroAcademico;
 		this.curso = curso;

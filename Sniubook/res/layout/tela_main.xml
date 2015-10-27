@@ -17,17 +17,8 @@
         android:layout_marginTop="17dp"
         android:src="@drawable/ic_launcher" />
 
-    <Button
-        android:id="@+id/btRegistrar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btLogin"
-        android:layout_below="@+id/btLogin"
-        android:layout_marginTop="22dp"
-        android:text="Registrar" />
-
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvNomeCursoAvaliacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView1"
@@ -36,26 +27,44 @@
         android:text="Bem-vindo ao Sniubook!"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <EditText
+        android:id="@+id/tvUsuarioLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btLogin"
+        android:layout_below="@+id/tvNomeCursoAvaliacao"
+        android:layout_marginTop="69dp"
+        android:ems="10"
+        android:hint="Informe seu login (RA)"
+        android:inputType="number" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/tvPrincipalCampus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUsuarioLogin"
+        android:layout_centerHorizontal="true"
+        android:text="Se você é um ex-aluno, logue com o CPF"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
     <Button
         android:id="@+id/btLogin"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvUsuarioEmail"
+        android:layout_below="@+id/tvPrincipalCampus"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="Fazer Login" />
 
-    <EditText
-        android:id="@+id/tvUsuarioEmail"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btRegistrar"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btLogin"
-        android:layout_below="@+id/textView1"
-        android:layout_marginTop="69dp"
-        android:ems="10"
-        android:inputType="textEmailAddress" >
-
-        <requestFocus />
-    </EditText>
+        android:layout_below="@+id/btLogin"
+        android:layout_centerHorizontal="true"
+        android:text="Registrar" />
 
 </RelativeLayout>

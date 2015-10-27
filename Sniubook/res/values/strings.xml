@@ -6,24 +6,25 @@
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">1508316562820229</string>
     <!-- <string name="APP_ID">1508316562820229</string> -->
-    <string name="prompt_campus">Escolha seu Campus</string>
+    
+    <string name="prompt_campus">(Escolha seu Campus)</string>
 
     <string-array name="Campus">
         <item>(Escolha seu Campus)</item>
-        <item>Antonio Carlos</item>
-        <item>Cristiano Machado</item>
-        <item>Estoril</item>
+        <item>AC - Antonio Carlos</item>
+        <item>CM - Cristiano Machado</item>
+        <item>ES - Estoril</item>
     </string-array>
 
-    <string name="prompt_curso">Escolha seu Curso</string>
+    <string name="prompt_curso">(Escolha seu Curso)</string>
 
     <string-array name="Curso">
         <item>(Escolha seu Curso)</item>
-        <item>Ciência da Computação</item>
-        <item>Sistemas de Informação</item>
+        <item>Ciencia da Computacao</item>
+        <item>Sistemas de Informacao</item>
     </string-array>
 
-    <string name="prompt_periodo">Escolha seu Periodo</string>
+    <string name="prompt_periodo">(Escolha seu Periodo)</string>
 
     <string-array name="Periodo">
         <item>(Escolha seu Periodo)</item>
@@ -35,6 +36,15 @@
         <item>3B</item>
         <item>4A</item>
         <item>4B</item>
+    </string-array>
+    
+    <string name="prompt_turno">(Escolha seu Turno)</string>
+    
+    <string-array name="Turno">
+        <item>(Escolha seu Turno)</item>
+        <item>Manhã</item>
+        <item>Tarde</item>
+        <item>Noite</item>
     </string-array>
 
     <string name="title_activity_tela_avaliar_curso">TelaAvaliarCurso</string>

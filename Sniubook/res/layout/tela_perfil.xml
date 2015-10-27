@@ -9,7 +9,7 @@
     tools:context="org.com.main.TelaPerfil" >
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvNomeCursoAvaliacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -17,20 +17,20 @@
         android:text="RA:" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvPrincipalCurso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/tvNomeCursoAvaliacao"
+        android:layout_below="@+id/tvNomeCursoAvaliacao"
         android:layout_marginTop="16dp"
         android:text="Nome:" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvPrincipalCampus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/tvPrincipalCurso"
+        android:layout_below="@+id/tvPrincipalCurso"
         android:layout_marginTop="14dp"
         android:text="CPF:" />
 
@@ -38,8 +38,8 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView3"
-        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/tvPrincipalCampus"
+        android:layout_below="@+id/tvPrincipalCampus"
         android:layout_marginTop="14dp"
         android:text="Curso:" />
 
@@ -74,7 +74,7 @@
         android:id="@+id/tvRegistroAcademico"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView1"
+        android:layout_alignBottom="@+id/tvNomeCursoAvaliacao"
         android:layout_alignLeft="@+id/tvCampus"
         android:layout_alignRight="@+id/tvCampus" />
 
@@ -82,8 +82,8 @@
         android:id="@+id/tvNome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textView2"
-        android:layout_alignBottom="@+id/textView2"
+        android:layout_alignBaseline="@+id/tvPrincipalCurso"
+        android:layout_alignBottom="@+id/tvPrincipalCurso"
         android:layout_alignLeft="@+id/tvRegistroAcademico"
         android:layout_alignRight="@+id/tvRegistroAcademico" />
 
@@ -116,9 +116,26 @@
         android:id="@+id/btDeslogar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvCampus"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="38dp"
-        android:text="Deslogar" />
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="109dp"
+        android:text="Voltar" />
+
+    <TextView
+        android:id="@+id/textView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:layout_marginTop="19dp"
+        android:text="Turma:" />
+
+    <TextView
+        android:id="@+id/tvTurma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView7"
+        android:layout_alignLeft="@+id/tvCampus"
+        android:layout_alignRight="@+id/tvCampus" />
 
 </RelativeLayout>

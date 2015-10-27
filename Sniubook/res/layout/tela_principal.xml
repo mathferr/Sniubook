@@ -9,15 +9,15 @@
     tools:context="org.com.main.TelaPrincipal" >
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btAvaliarCurso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btConfirmarAvaliacaoCurso"
+        android:layout_alignLeft="@+id/btTelaPerfil"
         android:layout_centerVertical="true"
         android:text="Avaliar Curso" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvNomeCursoAvaliacao"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/quickContactBadge1"
@@ -35,25 +35,16 @@
         android:layout_marginTop="15dp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/tvPrincipalCurso"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/textView1"
+        android:layout_alignLeft="@+id/tvNomeCursoAvaliacao"
+        android:layout_below="@+id/tvNomeCursoAvaliacao"
         android:text="Curso"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <View
-        android:id="@+id/view1"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignLeft="@+id/btConfirmarAvaliacaoCurso"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="16dp"
-        android:background="@android:color/darker_gray" />
-
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/btLogout"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,21 +54,30 @@
         android:text="Sair" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/tvPrincipalCampus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView2"
-        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/tvPrincipalCurso"
+        android:layout_below="@+id/tvPrincipalCurso"
         android:text="Campus"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
-        android:id="@+id/btConfirmarAvaliacaoCurso"
+        android:id="@+id/btTelaPerfil"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/btAvaliarCurso"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="26dp"
         android:text="Perfil" />
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignLeft="@+id/btTelaPerfil"
+        android:layout_below="@+id/quickContactBadge1"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/darker_gray" />
 
 </RelativeLayout>

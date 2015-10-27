@@ -14,33 +14,6 @@
         android:layout_alignParentLeft="true"
         android:text="Confirmar" />
 
-    <Spinner
-        android:id="@+id/spPeriodo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btConfirmarRegistro"
-        android:layout_alignParentLeft="true"
-        android:entries="@array/Periodo"
-        android:prompt="@string/prompt_periodo" />
-
-    <Spinner
-        android:id="@+id/spCurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/spPeriodo"
-        android:layout_alignParentLeft="true"
-        android:entries="@array/Curso"
-        android:prompt="@string/prompt_curso" />
-
-    <Spinner
-        android:id="@+id/spCampus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/spCurso"
-        android:layout_alignParentLeft="true"
-        android:entries="@array/Campus"
-        android:prompt="@string/prompt_campus" />
-
     <QuickContactBadge
         android:id="@+id/quickContactBadge1"
         android:layout_width="100dp"
@@ -62,15 +35,15 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="56dp"
             android:layout_marginTop="21dp"
-            android:text="Aluno" 
-            android:onClick="estadoRadioButtonAluno"/>
+            android:onClick="estadoRadioButtonAluno"
+            android:text="Aluno" />
 
         <RadioButton
             android:id="@+id/rbExAluno"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ex-Aluno"
-            android:onClick="estadoRadioButtonAluno" />
+            android:onClick="estadoRadioButtonAluno"
+            android:text="Ex-Aluno" />
     </RadioGroup>
 
     <EditText
@@ -84,8 +57,8 @@
         android:hint="Digite seu registro acadêmico" >
 
         <requestFocus />
-        <requestFocus />
 
+        <requestFocus />
     </EditText>
 
     <EditText
@@ -127,5 +100,42 @@
         android:ems="10"
         android:hint="Digite seu E-mail"
         android:inputType="textEmailAddress" />
+
+    <Spinner
+        android:id="@+id/spCampus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvAlunoEmail"
+        android:layout_marginTop="20dp"
+        android:entries="@array/Campus"
+        android:prompt="@string/prompt_campus" />
+
+    <Spinner
+        android:id="@+id/spPeriodo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spCampus"
+        android:entries="@array/Periodo"
+        android:prompt="@string/prompt_periodo" />
+
+    <Spinner
+        android:id="@+id/spCurso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spPeriodo"
+        android:entries="@array/Curso"
+        android:prompt="@string/prompt_curso" />
+
+    <Spinner
+        android:id="@+id/spTurno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/spCurso"
+        android:entries="@array/Turno"
+        android:prompt="@string/prompt_turno" />
 
 </RelativeLayout>

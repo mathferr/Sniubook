@@ -20,7 +20,7 @@ public class TelaRegistrar extends Activity {
 	
 	Button btCancelar, btConfirmar;
 	EditText tvAlunoRegistro, tvAlunoNome, tvAlunoCpf, tvAlunoEmail;
-	Spinner spCurso, spPeriodo, spCampus;
+	Spinner spCurso, spPeriodo, spCampus, spTurno;
 	RadioButton rbAluno, rbExAluno;
 	
 	SQLiteDatabase BancoDados;
@@ -56,32 +56,37 @@ public class TelaRegistrar extends Activity {
 					) {
 					
 					BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-					String sql = "SELECT codigo FROM curso WHERE nome = "
-							+ "'" + spCurso.getSelectedItem().toString().toUpperCase() + "' AND campus LIKE "
-							+ "'%" + spCampus.getSelectedItem().toString().substring(0, 3).toUpperCase() + "%'";
+					String sql = "SELECT curso.codigo FROM curso, campus WHERE curso.nome = "
+							+ "'" + spCurso.getSelectedItem().toString().toUpperCase() + "' AND campus.codigo = "
+							+ "'" + spCampus.getSelectedItem().toString().substring(0, 2).toUpperCase() + "'";
 					Cursor cursor = BancoDados.rawQuery(sql, null);
 					if (cursor.getCount() > 0) {
 						cursor.moveToFirst();
 						
-						String turma = cursor.getString(0) + spPeriodo.getSelectedItem().toString() + "-"
-								+ spCampus.getSelectedItem().toString().substring(0,3);
+						String turma = cursor.getString(0) + spPeriodo.getSelectedItem().toString() +
+								spTurno.getSelectedItem().toString().charAt(0) + "-" +
+								spCampus.getSelectedItem().toString().substring(0,2);
 						
 						Aluno aluno = new Aluno(
+								Integer.parseInt(tvAlunoRegistro.getText().toString()),
 								tvAlunoNome.getText().toString(), 
 								tvAlunoCpf.getText().toString(), 
-								tvAlunoEmail.getText().toString(), 
-								Integer.parseInt(tvAlunoRegistro.getText().toString()), 
-								cursor.getString(0),
+								tvAlunoEmail.getText().toString(),  
+								spCampus.getSelectedItem().toString().substring(0,2),
 								turma,
 								spPeriodo.getSelectedItem().toString(), 
-								spCampus.getSelectedItem().toString().substring(0,3));
-						
+								cursor.getString(0),
+								spTurno.getSelectedItem().toString());
+						estadoRadioButtonAluno(rbAluno);
+						estadoRadioButtonAluno(rbExAluno);
 						if (rbAluno.isChecked()) {
 							registrarAluno(aluno);
 						} else if (rbExAluno.isChecked()) {
 							registrarExAluno(aluno);
 						}
 						
+					} else {
+						exibirMensagem("Erro", "Não encontrou o curso");
 					}
 				} else {
 					exibirMensagem("Erro", "Todos os campos devem ser preechidos");
@@ -114,11 +119,11 @@ public class TelaRegistrar extends Activity {
 				BancoDados.close();
 				return;
 			}			
-			String sql = "INSERT INTO aluno (registro_academico, nome, cpf, email, curso, turma, periodo, campus) VALUES "
+			String sql = "INSERT INTO aluno (registro_academico, nome, cpf, email, codigo_curso_fk, turma, periodo, campus) VALUES "
 					+ "(" + aluno.getRegistroAcademico() + ", "
-					+ "'" + aluno.getNome() + "', '" + aluno.getCpf() + "', '" + aluno.getEmail() + "', "
-					+ "'" + aluno.getCurso() + "', '" + aluno.getTurma() + "', "
-					+ "'" + aluno.getPeriodo() + "', '" + aluno.getCampus() + "')";
+					+ "'" + aluno.getNome().toUpperCase() + "', " + aluno.getCpf() + ", '" + aluno.getEmail().toLowerCase() + "', "
+					+ "'" + aluno.getCurso().toUpperCase() + "', '" + aluno.getTurma().toUpperCase() + "', "
+					+ "'" + aluno.getPeriodo().toUpperCase() + "', '" + aluno.getCampus().toUpperCase() + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Cadastro realizado com sucesso.");
 
@@ -139,11 +144,11 @@ public class TelaRegistrar extends Activity {
 				BancoDados.close();
 				return;
 			}	
-			String sql = "INSERT INTO ex_aluno (cpf, nome, email, curso, campus) VALUES "
+			String sql = "INSERT INTO ex_aluno (cpf, nome, email, codigo_curso_fk, campus) VALUES "
 					+ "(" + aluno.getCpf() + ", "
-					+ "'" + aluno.getNome() + "', '" + aluno.getEmail() + "', "
-					+ "'" + aluno.getCurso() + "', "
-					+ "'" + aluno.getCampus() + "')";
+					+ "'" + aluno.getNome().toUpperCase() + "', '" + aluno.getEmail().toLowerCase() + "', "
+					+ "'" + aluno.getCurso().toUpperCase() + "', "
+					+ "'" + aluno.getCampus().toUpperCase() + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Cadastro realizado com sucesso.");
 			
@@ -164,6 +169,7 @@ public class TelaRegistrar extends Activity {
 		spCurso = (Spinner) findViewById(R.id.spCurso);
 		spPeriodo = (Spinner) findViewById(R.id.spPeriodo);
 		spCampus = (Spinner) findViewById(R.id.spCampus);
+		spTurno = (Spinner) findViewById(R.id.spTurno);
 		rbAluno = (RadioButton) findViewById(R.id.rbAluno);
 		rbExAluno = (RadioButton) findViewById(R.id.rbExAluno);
 	}
