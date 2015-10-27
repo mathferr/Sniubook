@@ -15,14 +15,16 @@ public class Aluno extends Pessoa {
     private String turma;
     private String periodo;
     private String campus;
+    private String turno;
 
-    public Aluno(String nome, String cpf, String email, int registroAcademico, String curso, String turma, String periodo, String campus) {
+    public Aluno(String nome, String cpf, String email, int registroAcademico, String curso, String turma, String periodo, String campus, String turno) {
 		super(nome, cpf, email);
 		this.registroAcademico = registroAcademico;
 		this.curso = curso;
 		this.turma = turma;
 		this.periodo = periodo;
 		this.campus = campus;
+		this.turno = turno;
 	}
 
 	public int getRegistroAcademico() {
@@ -44,5 +46,9 @@ public class Aluno extends Pessoa {
     public String getCampus() {
 		return campus;
 	}
+    
+    public String getTurno(){
+    	return turno;
+    }
     
 }

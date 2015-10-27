@@ -12,7 +12,7 @@
         android:id="@+id/button2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_alignLeft="@+id/btConfirmarAvaliacaoCurso"
         android:layout_centerVertical="true"
         android:text="Avaliar Curso" />
 
@@ -47,7 +47,7 @@
         android:id="@+id/view1"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_alignLeft="@+id/button1"
+        android:layout_alignLeft="@+id/btConfirmarAvaliacaoCurso"
         android:layout_below="@+id/textView2"
         android:layout_marginTop="16dp"
         android:background="@android:color/darker_gray" />
@@ -72,7 +72,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/btConfirmarAvaliacaoCurso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/button2"

@@ -8,33 +8,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.com.main.TelaMainActivity" >
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="36dp"
-        android:text="LOGO"
-        android:textSize="40sp" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:text="Bem vindo ao Sniubook" />
-
-    <Button
-        android:id="@+id/btLogin"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="118dp"
-        android:text="Fazer Login" />
+        android:layout_marginTop="17dp"
+        android:src="@drawable/ic_launcher" />
 
     <Button
         android:id="@+id/btRegistrar"
@@ -42,16 +23,35 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btLogin"
         android:layout_below="@+id/btLogin"
+        android:layout_marginTop="22dp"
         android:text="Registrar" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Bem-vindo ao Sniubook!"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <Button
+        android:id="@+id/btLogin"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvUsuarioEmail"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="Fazer Login" />
 
     <EditText
         android:id="@+id/tvUsuarioEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btLogin"
-        android:layout_alignRight="@+id/btLogin"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="69dp"
         android:ems="10"
         android:inputType="textEmailAddress" >
 

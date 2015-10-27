@@ -8,4 +8,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="org.com.main.TelaAvaliarCurso" >
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:text="Nome Curso"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btConfirmarAvaliacaoCurso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="Confirmar" />
+
+    <RatingBar
+        android:id="@+id/rbCurso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btConfirmarAvaliacaoCurso"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="13dp" />
+
+    <ListView
+        android:id="@+id/lvCurso"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_above="@+id/rbCurso"
+        android:layout_marginBottom="21dp" >
+    </ListView>
+
 </RelativeLayout>

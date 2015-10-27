@@ -15,13 +15,11 @@ public class Curso {
 	private String codigo;
     private String nome;
     private int duracao;
-    private String turno;
     
-	public Curso(String codigo, String nome, int duracao, String turno) {
+	public Curso(String codigo, String nome, int duracao) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.duracao = duracao;
-		this.turno = turno;
 	}
 	
 	public String getCodigo() {
@@ -36,8 +34,4 @@ public class Curso {
 		return duracao;
 	}
 
-	public String getTurno() {
-		return turno;
-	}
-	
 }
