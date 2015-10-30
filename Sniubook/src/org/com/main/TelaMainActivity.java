@@ -136,6 +136,10 @@ public class TelaMainActivity extends Activity {
 //          String sql = "DROP TABLE avaliacao_professor";
             sql = "CREATE TABLE IF NOT EXISTS avaliacao_professor (registro_aluno_fk INTEGER PRIMARY KEY, nota FLOAT, codigo_professor_fk TEXT)";
             BancoDados.execSQL(sql);
+            
+//          String sql = "DROP TABLE comentarios";
+//            sql = "CREATE TABLE IF NOT EXISTS comentarios (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
+//            		+ "codigo_curso_fk TEXT, comentario TEXT)";
 /*            
             sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('CIC', 'CIENCIA DA COMPUTACAO', 4)";
             BancoDados.execSQL(sql);

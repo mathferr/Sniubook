@@ -1,5 +1,10 @@
 package org.com.main;
 
+import java.util.ArrayList;
+
+import org.com.adapter.AdapterCurso;
+import org.com.model.Comentarios;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
@@ -11,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -21,6 +27,7 @@ public class TelaAvaliarCurso extends Activity {
 	TextView tvNomeCursoAvaliacao;
 	RatingBar ratingCurso, ratingCursoGeral;
 	Button btConfirmarRateCurso, btVoltarAvaliarCurso;
+	ListView listComentCurso;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,18 +35,35 @@ public class TelaAvaliarCurso extends Activity {
 		setContentView(R.layout.tela_avaliar_curso);
 		
 		inicializarComponentes();
+		ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
+		for (int i = 0; i < 10; i++) {
+			comentarios.add(new Comentarios());
+		}
+		
+		AdapterCurso adapterCurso = new AdapterCurso(this, comentarios);
+		listComentCurso.setAdapter(adapterCurso);
 		
 		btConfirmarRateCurso.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				if (ratingCurso.getRating() == 0) {
-					exibirMensagem("Erro", "Você deve avaliar o curso de 1 a 5 estrelas");
-				} else {
-					avaliarCurso(ratingCurso.getRating());
-					ratingCurso.setEnabled(false);
-					btConfirmarRateCurso.setEnabled(false);
-					btConfirmarRateCurso.setVisibility(Button.INVISIBLE);
+				try {
+					if (ratingCurso.getRating() < 1) {
+						exibirMensagem("Erro", "Você deve avaliar o curso de 1 a 5 estrelas");
+					} else {
+						BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+						String search = "SELECT nota FROM avaliacao_curso WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico();
+						Cursor result = BancoDados.rawQuery(search, null);
+						if (result.getCount() > 0) {
+							reavaliarCurso(ratingCurso.getRating(), TelaMainActivity.perfil.getRegistroAcademico());
+						} else {
+							avaliarCurso(ratingCurso.getRating(), TelaMainActivity.perfil.getRegistroAcademico(), TelaMainActivity.perfil.getCurso());
+						}
+					}
+				} catch (Exception erro) {
+					exibirMensagem("Erro", "Erro ao avaliar o curso.\n" + erro.toString());
+				} finally {
+					BancoDados.close();
 				}
 			}
 		});
@@ -80,21 +104,20 @@ public class TelaAvaliarCurso extends Activity {
 		ratingCursoGeral = (RatingBar) findViewById(R.id.ratingCursoGeral);
 		btConfirmarRateCurso = (Button) findViewById(R.id.btConfirmarRateCurso);
 		btVoltarAvaliarCurso = (Button) findViewById(R.id.btVoltarAvaliarCurso);
+		listComentCurso = (ListView) findViewById(R.id.listComentCurso);
 	}
 	
-	public void avaliarCurso(float rate) {
-		try {
-			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-			String sql = "INSERT INTO avaliacao_curso (registro_aluno_fk, nota, codigo_curso_fk) VALUES "
-					+ "(" + TelaMainActivity.perfil.getRegistroAcademico() + ", " + rate + ", "
-					+ "'" + TelaMainActivity.perfil.getCurso() + "')";
-			BancoDados.execSQL(sql);
-			exibirMensagem("Sucesso", "O curso foi avaliado com sucesso.");
-		} catch (Exception erro) {
-			exibirMensagem("Erro", "Erro ao avaliar o curso.\n" + erro.toString());
-		} finally {
-			BancoDados.close();
-		}
+	public void avaliarCurso(float rate, int registroAluno, String curso) {
+		String sql = "INSERT INTO avaliacao_curso (registro_aluno_fk, nota, codigo_curso_fk) VALUES "
+				+ "(" + registroAluno + ", " + rate + ", '" + curso.toUpperCase() + "')";
+		BancoDados.execSQL(sql);
+		exibirMensagem("Sucesso", "O curso foi avaliado com sucesso.");
+	}
+	
+	public void reavaliarCurso(float rate, int registroAluno) {
+		String sql = "UPDATE avaliacao_curso SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno;
+		BancoDados.execSQL(sql);
+		exibirMensagem("Sucesso", "Você reavaliou o curso.");
 	}
 	
 	@Override
@@ -118,15 +141,7 @@ public class TelaAvaliarCurso extends Activity {
 			if (result.getCount() > 0) {
 				result.moveToFirst();
 				ratingCurso.setRating(result.getFloat(0));
-				ratingCurso.setEnabled(false);
-				btConfirmarRateCurso.setEnabled(false);
-				btConfirmarRateCurso.setVisibility(Button.INVISIBLE);
-			} else {
-				ratingCurso.setEnabled(true);
-				btConfirmarRateCurso.setEnabled(true);
-				btConfirmarRateCurso.setVisibility(Button.VISIBLE);
 			}
-			
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Erro ao exibir avaliacao geral.\n" + erro.toString());
 		} finally {

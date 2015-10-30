@@ -5,8 +5,6 @@
  */
 package org.com.model;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author SAMSUNG
