@@ -13,12 +13,12 @@ import android.widget.BaseAdapter;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class AdapterCurso extends BaseAdapter {
+public class AdapterProfessor extends BaseAdapter {
 	
 	private Context context;
 	private ArrayList<Comentarios> comentarios;
 	
-	public AdapterCurso(Context context, ArrayList<Comentarios> comentarios) {
+	public AdapterProfessor(Context context, ArrayList<Comentarios> comentarios) {
 		this.context = context;
 		this.comentarios = comentarios;
 	}

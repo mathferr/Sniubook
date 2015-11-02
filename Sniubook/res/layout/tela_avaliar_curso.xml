@@ -41,7 +41,7 @@
         android:text="Confirmar" />
 
     <TextView
-        android:id="@+id/tvNomeComentCurso"
+        android:id="@+id/tvNomeComent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/btConfirmarRateCurso"
@@ -60,10 +60,10 @@
         android:scaleY="0.75" />
 
     <TextView
-        android:id="@+id/tvComentCurso"
+        android:id="@+id/tvComent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvNomeComentCurso"
+        android:layout_alignLeft="@+id/tvNomeComent"
         android:layout_below="@+id/ratingCurso"
         android:text="Comentários:"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -72,8 +72,8 @@
         android:id="@+id/scrollView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvComentCurso"
-        android:layout_below="@+id/tvComentCurso" >
+        android:layout_alignLeft="@+id/tvComent"
+        android:layout_below="@+id/tvComent" >
 
         <LinearLayout
             android:layout_width="match_parent"

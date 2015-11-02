@@ -14,7 +14,7 @@
         android:scaleY="0.5 "/>
 
     <TextView
-        android:id="@+id/tvNomeComentCurso"
+        android:id="@+id/tvNomeComent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -24,7 +24,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tvComentCurso"
+        android:id="@+id/tvComent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"

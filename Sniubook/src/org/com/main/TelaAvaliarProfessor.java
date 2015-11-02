@@ -1,10 +1,5 @@
 package org.com.main;
 
-import java.util.ArrayList;
-
-import org.com.adapter.AdapterDisciplina;
-import org.com.model.Comentarios;
-
 import android.app.Activity;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -15,30 +10,30 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class TelaAvaliarDisciplina extends Activity {
+public class TelaAvaliarProfessor extends Activity {
 	
 	SQLiteDatabase BancoDados;
 	
-	TextView tvNomeDisciplinaAvaliacao;
-	RatingBar ratingDisciplina, ratingDisciplinaGeral;
-	Button btConfirmarRateDisciplina, btVoltarAvaliarDisciplina;
-	ListView listComentDisciplina;
+	TextView tvNomeProfessorAvaliacao;
+	RatingBar ratingProfessor, ratingProfessorGeral;
+	Button btConfirmarRateProfessor, btVoltarAvaliarProfessor;
+	ListView listComentProfessor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.tela_avaliar_disciplina);
+		setContentView(R.layout.tela_avaliar_professor);
 		
 		inicializarComponentes();
 		
-//		AdapterDisciplina adapterDisciplina = new AdapterDisciplina(this, comentarios);
-//		listComentDisciplina.setAdapter(adapterDisciplina);
+//		AdapterProfessor adapterProfessor = new AdapterProfessor(this, comentarios);
+//		listComentProfessor.setAdapter(adapterProfessor);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.tela_avaliar_disciplina, menu);
+		getMenuInflater().inflate(R.menu.tela_avaliar_professor, menu);
 		return true;
 	}
 
@@ -55,11 +50,11 @@ public class TelaAvaliarDisciplina extends Activity {
 	}
 	
 	public void inicializarComponentes() {
-		tvNomeDisciplinaAvaliacao = (TextView) findViewById(R.id.tvNomeDisciplinaAvaliacao);
-		ratingDisciplina = (RatingBar) findViewById(R.id.ratingDisciplina);
-		ratingDisciplinaGeral = (RatingBar) findViewById(R.id.ratingDisciplinaGeral);
-		btConfirmarRateDisciplina = (Button) findViewById(R.id.btConfirmarRateDisciplina);
-		btVoltarAvaliarDisciplina = (Button) findViewById(R.id.btVoltarAvaliarDisciplina);
-		listComentDisciplina = (ListView) findViewById(R.id.listComentDisciplina);
+		tvNomeProfessorAvaliacao = (TextView) findViewById(R.id.tvNomeDisciplinaAvaliacao);
+		ratingProfessor = (RatingBar) findViewById(R.id.ratingDisciplina);
+		ratingProfessorGeral = (RatingBar) findViewById(R.id.ratingDisciplinaGeral);
+		btConfirmarRateProfessor = (Button) findViewById(R.id.btConfirmarRateDisciplina);
+		btVoltarAvaliarProfessor = (Button) findViewById(R.id.btVoltarAvaliarDisciplina);
+		listComentProfessor = (ListView) findViewById(R.id.listComentDisciplina);
 	}
 }

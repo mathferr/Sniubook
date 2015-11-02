@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -25,8 +26,9 @@ public class TelaAvaliarCurso extends Activity {
 	SQLiteDatabase BancoDados;
 	
 	TextView tvNomeCursoAvaliacao;
+	EditText txtComentarioCurso;
 	RatingBar ratingCurso, ratingCursoGeral;
-	Button btConfirmarRateCurso, btVoltarAvaliarCurso;
+	Button btConfirmarRateCurso, btVoltarAvaliarCurso, btEnviarComentarioCurso;
 	ListView listComentCurso;
 	
 	@Override
@@ -48,7 +50,7 @@ public class TelaAvaliarCurso extends Activity {
 			@Override
 			public void onClick(View v) {
 				try {
-					if (ratingCurso.getRating() < 1) {
+					if (ratingCurso.getRating() < 0.5) {
 						exibirMensagem("Erro", "Você deve avaliar o curso de 1 a 5 estrelas");
 					} else {
 						BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
@@ -65,6 +67,21 @@ public class TelaAvaliarCurso extends Activity {
 				} finally {
 					BancoDados.close();
 				}
+			}
+		});
+		
+		btEnviarComentarioCurso.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				try {
+					if (!txtComentarioCurso.getText().toString().isEmpty()) {
+						
+					}
+				} catch (Exception erro) {
+					
+				}
+				
 			}
 		});
 		
@@ -105,6 +122,8 @@ public class TelaAvaliarCurso extends Activity {
 		btConfirmarRateCurso = (Button) findViewById(R.id.btConfirmarRateCurso);
 		btVoltarAvaliarCurso = (Button) findViewById(R.id.btVoltarAvaliarCurso);
 		listComentCurso = (ListView) findViewById(R.id.listComentCurso);
+		btEnviarComentarioCurso = (Button) findViewById(R.id.btEnviarComentarioCurso);
+		txtComentarioCurso = (EditText) findViewById(R.id.txtComentarioCurso);
 	}
 	
 	public void avaliarCurso(float rate, int registroAluno, String curso) {
@@ -118,6 +137,20 @@ public class TelaAvaliarCurso extends Activity {
 		String sql = "UPDATE avaliacao_curso SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno;
 		BancoDados.execSQL(sql);
 		exibirMensagem("Sucesso", "Você reavaliou o curso.");
+	}
+	
+	public void enviarComentario(String comentario, int registroAluno) {
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);
+			String sql = "INSERT INTO comentarios_curso (resgitro_aluno_fk, codigo_curso_fk, comentario) VALUES ("
+					+ registroAluno + ", '" + TelaMainActivity.perfil.getCurso() + "', '" + comentario + "')";
+			BancoDados.execSQL(sql);
+			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
+		} catch (Exception erro) {
+			
+		} finally {
+			BancoDados.close();
+		}
 	}
 	
 	@Override

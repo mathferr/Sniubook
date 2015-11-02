@@ -47,6 +47,10 @@
             android:name=".TelaAvaliarDisciplina"
             android:label="@string/title_activity_tela_avaliar_disciplina" >
         </activity>
+        <activity
+            android:name=".TelaAvaliarProfessor"
+            android:label="@string/title_activity_tela_avaliar_professor" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
