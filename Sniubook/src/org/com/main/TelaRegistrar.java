@@ -131,6 +131,9 @@ public class TelaRegistrar extends Activity {
 			exibirMensagem("Erro", "Erro ao cadastrar aluno.\n" + erro.toString());
 		} finally {
 			BancoDados.close();
+			Intent telaAnterior = new Intent(TelaRegistrar.this, TelaMainActivity.class);
+			TelaRegistrar.this.startActivity(telaAnterior);
+			TelaRegistrar.this.finish();
 		}
 	}
 	
@@ -156,6 +159,9 @@ public class TelaRegistrar extends Activity {
 			exibirMensagem("Erro", "Erro ao cadastrar o ex-aluno");
 		} finally {
 			BancoDados.close();
+			Intent telaAnterior = new Intent(TelaRegistrar.this, TelaMainActivity.class);
+			TelaRegistrar.this.startActivity(telaAnterior);
+			TelaRegistrar.this.finish();
 		}
 	}
 	

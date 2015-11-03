@@ -91,7 +91,7 @@
 
     <EditText
         android:id="@+id/txtComentarioProfessor"
-        android:layout_width="270dp"
+        android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:layout_above="@+id/btConfirmarRateProfessor"
         android:layout_alignLeft="@+id/btConfirmarRateProfessor"
@@ -100,13 +100,5 @@
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/btEnviarComentarioProfessor"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btConfirmarRateProfessor"
-        android:layout_alignRight="@+id/btConfirmarRateProfessor"
-        android:text="Enviar" />
 
 </RelativeLayout>

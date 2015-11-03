@@ -92,7 +92,7 @@
 
     <EditText
         android:id="@+id/txtComentarioDisciplina"
-        android:layout_width="270dp"
+        android:layout_width="fill_parent"
         android:layout_height="40dp"
         android:layout_above="@+id/btConfirmarRateDisciplina"
         android:layout_alignLeft="@+id/btConfirmarRateDisciplina"
@@ -101,13 +101,5 @@
 
         <requestFocus />
     </EditText>
-
-    <Button
-        android:id="@+id/btEnviarComentarioDisciplina"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txtComentarioDisciplina"
-        android:layout_alignParentRight="true"
-        android:text="Enviar" />
 
 </RelativeLayout>

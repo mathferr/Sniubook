@@ -28,8 +28,10 @@ public class TelaAvaliarCurso extends Activity {
 	TextView tvNomeCursoAvaliacao;
 	EditText txtComentarioCurso;
 	RatingBar ratingCurso, ratingCursoGeral;
-	Button btConfirmarRateCurso, btVoltarAvaliarCurso, btEnviarComentarioCurso;
+	Button btConfirmarRateCurso, btVoltarAvaliarCurso;
 	ListView listComentCurso;
+	
+	ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +39,8 @@ public class TelaAvaliarCurso extends Activity {
 		setContentView(R.layout.tela_avaliar_curso);
 		
 		inicializarComponentes();
-		ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
-		for (int i = 0; i < 10; i++) {
-			comentarios.add(new Comentarios());
-		}
+		
+		comentarios = getListaComentarios();
 		
 		AdapterCurso adapterCurso = new AdapterCurso(this, comentarios);
 		listComentCurso.setAdapter(adapterCurso);
@@ -66,21 +66,15 @@ public class TelaAvaliarCurso extends Activity {
 					exibirMensagem("Erro", "Erro ao avaliar o curso.\n" + erro.toString());
 				} finally {
 					BancoDados.close();
+				}				
+				if (!txtComentarioCurso.getText().toString().isEmpty()) {
+					enviarComentario(txtComentarioCurso.getText().toString(), TelaMainActivity.perfil.getRegistroAcademico());
 				}
-			}
-		});
-		
-		btEnviarComentarioCurso.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				try {
-					if (!txtComentarioCurso.getText().toString().isEmpty()) {
-						
-					}
-				} catch (Exception erro) {
-					
-				}
+				
+				comentarios = getListaComentarios();
+				
+				AdapterCurso adapterCurso = new AdapterCurso(TelaAvaliarCurso.this, comentarios);
+				listComentCurso.setAdapter(adapterCurso);
 				
 			}
 		});
@@ -122,7 +116,6 @@ public class TelaAvaliarCurso extends Activity {
 		btConfirmarRateCurso = (Button) findViewById(R.id.btConfirmarRateCurso);
 		btVoltarAvaliarCurso = (Button) findViewById(R.id.btVoltarAvaliarCurso);
 		listComentCurso = (ListView) findViewById(R.id.listComentCurso);
-		btEnviarComentarioCurso = (Button) findViewById(R.id.btEnviarComentarioCurso);
 		txtComentarioCurso = (EditText) findViewById(R.id.txtComentarioCurso);
 	}
 	
@@ -141,13 +134,13 @@ public class TelaAvaliarCurso extends Activity {
 	
 	public void enviarComentario(String comentario, int registroAluno) {
 		try {
-			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);
-			String sql = "INSERT INTO comentarios_curso (resgitro_aluno_fk, codigo_curso_fk, comentario) VALUES ("
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);	
+			String sql = "INSERT INTO comentarios_curso (registro_aluno_fk, codigo_curso_fk, comentario) VALUES ("
 					+ registroAluno + ", '" + TelaMainActivity.perfil.getCurso() + "', '" + comentario + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
 		} catch (Exception erro) {
-			
+			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
 		} finally {
 			BancoDados.close();
 		}
@@ -180,6 +173,27 @@ public class TelaAvaliarCurso extends Activity {
 		} finally {
 			BancoDados.close();
 		}
+	}
+	
+	public ArrayList<Comentarios> getListaComentarios() {
+		ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+			String sql = "SELECT a.nome, cc.comentario, ac.nota FROM comentarios_curso cc, aluno a, avaliacao_curso ac "
+					+ "WHERE cc.codigo_curso_fk = '" + TelaMainActivity.perfil.getCurso() + "' "
+					+ "AND a.registro_academico = cc.registro_aluno_fk "
+					+ "AND cc.registro_aluno_fk = ac.registro_aluno_fk "
+					+ "ORDER BY cc.codigo DESC LIMIT 5";
+			Cursor cursor = BancoDados.rawQuery(sql, null);
+			while (cursor.moveToNext()) {
+				comentarios.add(new Comentarios(cursor.getString(0), cursor.getString(1), cursor.getFloat(2)));
+			}
+		} catch (Exception erro) {
+			exibirMensagem("Erro", "Erro ao preencher a lista de comentarios.\n" + erro.toString());
+		} finally {
+			BancoDados.close();
+		}
+		return comentarios;
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

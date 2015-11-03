@@ -138,14 +138,15 @@ public class TelaMainActivity extends Activity {
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE comentarios_curso";
-//          sql = "CREATE TABLE IF NOT EXISTS comentarios_curso (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
-//            		+ "codigo_curso_fk TEXT, comentario TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS comentarios_curso (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
+            		+ "codigo_curso_fk TEXT, comentario TEXT)";
+            BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE comentarios_disciplina";
 //          sql = "CREATE TABLE IF NOT EXISTS comentarios_disciplina (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
 //          		+ "codigo_disciplina_fk TEXT, comentario TEXT)";
             
-//          String sql = "DROP TABLE comentarios_curso";
+//          String sql = "DROP TABLE comentarios_professor";
 //          sql = "CREATE TABLE IF NOT EXISTS comentarios_professor (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
 //          		+ "registro_profissional_fk TEXT, comentario TEXT)";
 /*            
