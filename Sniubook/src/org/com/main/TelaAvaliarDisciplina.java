@@ -2,6 +2,8 @@ package org.com.main;
 
 import java.util.ArrayList;
 
+import org.com.adapter.AdapterCurso;
+import org.com.adapter.AdapterDisciplina;
 import org.com.model.Comentarios;
 import org.com.model.Disciplina;
 
@@ -32,6 +34,7 @@ public class TelaAvaliarDisciplina extends Activity {
 	ListView listComentDisciplina;
 	
 	ArrayList<Disciplina> disciplinas = TelaDisciplinasCurso.disciplinas;
+	ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
 	int posicao = TelaDisciplinasCurso.posicao;
 
 	@Override
@@ -41,6 +44,11 @@ public class TelaAvaliarDisciplina extends Activity {
 		
 		inicializarComponentes();
 		
+		comentarios = getListaComentarios();
+		
+		AdapterDisciplina adapterDisciplina = new AdapterDisciplina(TelaAvaliarDisciplina.this, comentarios);
+		listComentDisciplina.setAdapter(adapterDisciplina);
+		
 		btVoltarAvaliarDisciplina.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -48,6 +56,40 @@ public class TelaAvaliarDisciplina extends Activity {
 				Intent telaAnterior = new Intent(TelaAvaliarDisciplina.this, TelaDisciplinasCurso.class);
 				TelaAvaliarDisciplina.this.startActivity(telaAnterior);
 				TelaAvaliarDisciplina.this.finish();
+			}
+		});
+		
+		btConfirmarRateDisciplina.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				try {
+					if (ratingDisciplina.getRating() < 0.5) {
+						exibirMensagem("Erro", "Você deve avaliar a disciplina de 1 a 5 estrelas");
+					} else {
+						BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+						String search = "SELECT nota FROM avaliacao_disciplina WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico() + " "
+								+ "AND codigo_disciplina_fk = " + TelaDisciplinasCurso.disciplinas.get(posicao).getCodigo();
+						Cursor result = BancoDados.rawQuery(search, null);
+						if (result.getCount() > 0) {
+							reavaliarDisciplina(ratingDisciplina.getRating(), TelaMainActivity.perfil.getRegistroAcademico());
+						} else {
+							avaliarDisciplina(ratingDisciplina.getRating(), TelaMainActivity.perfil.getRegistroAcademico(), TelaDisciplinasCurso.disciplinas.get(posicao).getCodigo());
+						}
+					}
+				} catch (Exception erro) {
+					exibirMensagem("Erro", "Erro ao avaliar a disciplina.\n" + erro.toString());
+				} finally {
+					BancoDados.close();
+				}				
+				if (!txtComentarioDisciplina.getText().toString().isEmpty()) {
+					enviarComentario(txtComentarioDisciplina.getText().toString(), TelaMainActivity.perfil.getRegistroAcademico());
+				}
+				
+				comentarios = getListaComentarios();
+				
+				AdapterDisciplina adapterDisciplina = new AdapterDisciplina(TelaAvaliarDisciplina.this, comentarios);
+				listComentDisciplina.setAdapter(adapterDisciplina);
 			}
 		});
 
@@ -79,7 +121,7 @@ public class TelaAvaliarDisciplina extends Activity {
 		ratingDisciplinaGeral.setRating(disciplinas.get(posicao).getRate());
 		try {
 			BancoDados= openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-			String search = "SELECT * FROM avaliacao_disciplina";
+			String search = "SELECT * FROM avaliacao_disciplina WHERE codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo();
 			Cursor result = BancoDados.rawQuery(search, null);
 			if (result.getCount() > 0) {
 				String sql = "SELECT AVG(nota) FROM avaliacao_disciplina WHERE codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo();
@@ -88,7 +130,8 @@ public class TelaAvaliarDisciplina extends Activity {
 				ratingDisciplinaGeral.setRating(cursor.getFloat(0));
 			}
 			
-			search = "SELECT nota FROM avaliacao_disciplina WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico();
+			search = "SELECT nota FROM avaliacao_disciplina WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico() + " AND "
+					+ "codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo();
 			result = BancoDados.rawQuery(search, null);
 			if (result.getCount() > 0) {
 				result.moveToFirst();
@@ -117,7 +160,7 @@ public class TelaAvaliarDisciplina extends Activity {
 		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
 			String sql = "SELECT a.nome, cd.comentario, ad.nota FROM comentarios_disciplina cd, aluno a, avaliacao_disciplina ad "
-					+ "WHERE cd.codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo()
+					+ "WHERE cd.codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo() + " "
 					+ "AND a.registro_academico = cd.registro_aluno_fk "
 					+ "AND cd.registro_aluno_fk = ad.registro_aluno_fk "
 					+ "ORDER BY cd.codigo DESC LIMIT 5";
@@ -131,6 +174,32 @@ public class TelaAvaliarDisciplina extends Activity {
 			BancoDados.close();
 		}
 		return comentarios;
+	}
+	
+	public void avaliarDisciplina(float rate, int registroAluno, int disicplina) {
+		String sql = "INSERT INTO avaliacao_disciplina (registro_aluno_fk, nota, codigo_disciplina_fk) VALUES "
+				+ "(" + registroAluno + ", " + rate + ", " + disicplina + ")";
+		BancoDados.execSQL(sql);
+		exibirMensagem("Sucesso", "A disciplina foi avaliado com sucesso.");
+	}
+	
+	public void reavaliarDisciplina(float rate, int registroAluno) {
+		String sql = "UPDATE avaliacao_disciplina SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno;
+		BancoDados.execSQL(sql);
+	}
+	
+	public void enviarComentario(String comentario, int registroAluno) {
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);	
+			String sql = "INSERT INTO comentarios_disciplina (registro_aluno_fk, codigo_disciplina_fk, comentario) VALUES ("
+					+ registroAluno + ", '" + disciplinas.get(posicao).getCodigo() + "', '" + comentario + "')";
+			BancoDados.execSQL(sql);
+			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
+		} catch (Exception erro) {
+			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
+		} finally {
+			BancoDados.close();
+		}
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

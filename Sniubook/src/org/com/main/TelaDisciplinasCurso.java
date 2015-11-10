@@ -2,7 +2,6 @@ package org.com.main;
 
 import java.util.ArrayList;
 
-import org.com.adapter.AdapterListaDisciplinas;
 import org.com.model.Disciplina;
 
 import android.app.Activity;
@@ -15,8 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,7 +26,7 @@ public class TelaDisciplinasCurso extends Activity {
 	SQLiteDatabase BancoDados;
 	TextView tvNomeCursoD;
 	ListView listDisciplinas;
-	Button btVoltarDisciplinasCurso, btAvaliarDisciplina;
+	Button btVoltarDisciplinasCurso;
 	
 	public static int posicao;
 	public static ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
@@ -39,24 +39,26 @@ public class TelaDisciplinasCurso extends Activity {
 		inicializarComponentes();
 		
 		disciplinas = getListaDisciplinas();
+		ArrayList<String> disciplinas = new ArrayList<String>();
 		
-		AdapterListaDisciplinas adapterListaDisciplinas = new AdapterListaDisciplinas(this, disciplinas);
-		listDisciplinas.setAdapter(adapterListaDisciplinas);
+		for (Disciplina d : this.disciplinas) {
+			disciplinas.add(d.getNome());
+		}
 		
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, disciplinas);
 		
-		
-		btAvaliarDisciplina.setOnClickListener(new OnClickListener() {
-			
+		listDisciplinas.setAdapter(adapter);
+
+		listDisciplinas.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
-			public void onClick(View v) {
-				if (posicao != android.widget.AdapterView.INVALID_POSITION) {
-					Intent proximaTela = new Intent(TelaDisciplinasCurso.this, TelaAvaliarDisciplina.class);
-					TelaDisciplinasCurso.this.startActivity(proximaTela);
-					TelaDisciplinasCurso.this.finish();
-				} else {
-					exibirMensagem("Erro", "Selecione alguma disciplina para avalia-la.");
-				}
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				posicao = position;
+				Intent proximaTela = new Intent(TelaDisciplinasCurso.this, TelaAvaliarDisciplina.class);
+				TelaDisciplinasCurso.this.startActivity(proximaTela);
+				TelaDisciplinasCurso.this.finish();
 			}
+
 		});
 		
 		btVoltarDisciplinasCurso.setOnClickListener(new OnClickListener() {
@@ -122,7 +124,6 @@ public class TelaDisciplinasCurso extends Activity {
 	public void inicializarComponentes() {
 		tvNomeCursoD = (TextView) findViewById(R.id.tvNomeCursoD);
 		btVoltarDisciplinasCurso = (Button) findViewById(R.id.btVoltarDisicplinasCurso);
-		btAvaliarDisciplina = (Button) findViewById(R.id.btAvaliarDisciplina);
 		listDisciplinas = (ListView) findViewById(R.id.listDisciplinasCurso);
 	}
 	

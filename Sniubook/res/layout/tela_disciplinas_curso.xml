@@ -45,14 +45,6 @@
         android:layout_alignParentLeft="true"
         android:text="Voltar" />
 
-    <Button
-        android:id="@+id/btAvaliarDisciplina"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btVoltarDisicplinasCurso"
-        android:layout_alignParentLeft="true"
-        android:text="Avaliar disciplina selecionada" />
-
     <ListView
         android:id="@+id/listDisciplinasCurso"
         android:layout_width="match_parent"
