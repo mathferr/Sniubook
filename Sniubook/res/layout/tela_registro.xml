@@ -1,160 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     tools:context=".TelaRegistrar" >
 
-    <Button
-        android:id="@+id/btConfirmarRegistro"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btCancelar"
-        android:layout_alignParentLeft="true"
-        android:text="Confirmar" />
+        android:orientation="vertical" >
 
-    <QuickContactBadge
-        android:id="@+id/quickContactBadge1"
-        android:layout_width="100dp"
-        android:layout_height="75dp"
-        android:layout_alignBottom="@+id/rbgTypeAluno"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        <QuickContactBadge
+            android:id="@+id/quickContactBadge1"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            android:layout_alignBottom="@+id/rbgTypeAluno"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true" />
 
-    <RadioGroup
-        android:id="@+id/rbgTypeAluno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" >
+        <RadioGroup
+            android:id="@+id/rbgTypeAluno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
 
-        <RadioButton
-            android:id="@+id/rbAluno"
+            <RadioButton
+                android:id="@+id/rbAluno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="56dp"
+                android:layout_marginTop="21dp"
+                android:onClick="estadoRadioButtonAluno"
+                android:text="Aluno" />
+
+            <RadioButton
+                android:id="@+id/rbExAluno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="estadoRadioButtonAluno"
+                android:text="Ex-Aluno" />
+        </RadioGroup>
+
+        <EditText
+            android:id="@+id/tvAlunoRegistro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/quickContactBadge1"
+            android:ems="10"
+            android:hint="Digite seu registro acadêmico" >
+
+            <requestFocus />
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/tvAlunoNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvAlunoRegistro"
+            android:ems="10"
+            android:hint="Digite seu nome completo" />
+
+        <EditText
+            android:id="@+id/tvAlunoCpf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvAlunoNome"
+            android:ems="10"
+            android:hint="Digite seu CPF" >
+        </EditText>
+
+        <EditText
+            android:id="@+id/tvAlunoEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvAlunoCpf"
+            android:ems="10"
+            android:hint="Digite seu E-mail"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/tvSenha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvAlunoEmail"
+            android:ems="10"
+            android:hint="Digite uma senha"
+            android:inputType="textPassword" />
+
+        <EditText
+            android:id="@+id/tvConfSenha"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvSenha"
+            android:ems="10"
+            android:hint="Confirmar senha"
+            android:inputType="textPassword" />
+
+        <Spinner
+            android:id="@+id/spCampus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="56dp"
-            android:layout_marginTop="21dp"
-            android:onClick="estadoRadioButtonAluno"
-            android:text="Aluno" />
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvConfSenha"
+            android:entries="@array/Campus"
+            android:prompt="@string/prompt_campus" />
 
-        <RadioButton
-            android:id="@+id/rbExAluno"
+        <Spinner
+            android:id="@+id/spPeriodo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="estadoRadioButtonAluno"
-            android:text="Ex-Aluno" />
-    </RadioGroup>
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/spCampus"
+            android:entries="@array/Periodo"
+            android:prompt="@string/prompt_periodo" />
 
-    <EditText
-        android:id="@+id/tvAlunoRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/quickContactBadge1"
-        android:ems="10"
-        android:hint="Digite seu registro acadêmico" >
+        <Spinner
+            android:id="@+id/spCurso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/spPeriodo"
+            android:entries="@array/Curso"
+            android:prompt="@string/prompt_curso" />
 
-        <requestFocus />
+        <Spinner
+            android:id="@+id/spTurno"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/spCurso"
+            android:entries="@array/Turno"
+            android:prompt="@string/prompt_turno" />
 
-        <requestFocus />
-    </EditText>
+        <Button
+            android:id="@+id/btConfirmarRegistro"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Confirmar" />
 
-    <EditText
-        android:id="@+id/tvAlunoNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvAlunoRegistro"
-        android:ems="10"
-        android:hint="Digite seu nome completo" />
+        <Button
+            android:id="@+id/btCancelar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancelar" />
+    </LinearLayout>
 
-    <EditText
-        android:id="@+id/tvAlunoCpf"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvAlunoNome"
-        android:ems="10"
-        android:hint="Digite seu CPF" >
-    </EditText>
-
-    <Button
-        android:id="@+id/btCancelar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="Cancelar" />
-
-    <EditText
-        android:id="@+id/tvAlunoEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvAlunoCpf"
-        android:ems="10"
-        android:hint="Digite seu E-mail"
-        android:inputType="textEmailAddress" />
-
-    <EditText
-        android:id="@+id/tvSenha"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvAlunoEmail"
-        android:ems="10"
-        android:hint="Digite uma senha"
-        android:inputType="textPassword" />
-
-    <EditText
-        android:id="@+id/tvConfSenha"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvSenha"
-        android:ems="10"
-        android:hint="Confirmar senha"
-        android:inputType="textPassword" />
-
-    <Spinner
-        android:id="@+id/spCampus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvConfSenha"
-        android:entries="@array/Campus"
-        android:prompt="@string/prompt_campus" />
-
-    <Spinner
-        android:id="@+id/spPeriodo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/spCampus"
-        android:entries="@array/Periodo"
-        android:prompt="@string/prompt_periodo" />
-
-    <Spinner
-        android:id="@+id/spCurso"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/spPeriodo"
-        android:entries="@array/Curso"
-        android:prompt="@string/prompt_curso" />
-
-    <Spinner
-        android:id="@+id/spTurno"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/spCurso"
-        android:entries="@array/Turno"
-        android:prompt="@string/prompt_turno" />
-
-</RelativeLayout>
+</ScrollView>
