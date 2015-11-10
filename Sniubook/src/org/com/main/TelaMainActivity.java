@@ -21,7 +21,7 @@ public class TelaMainActivity extends Activity {
 	public static Aluno perfil;
 	SQLiteDatabase BancoDados;
 	Button btRegistrar, btLogin;
-	EditText tvUsuarioLogin;
+	EditText tvUsuarioLogin, tvUsuarioSenha;
 	//String APP_ID = getString(R.string.facebook_app_id);
 	
 	//ImageView img;
@@ -38,12 +38,13 @@ public class TelaMainActivity extends Activity {
 		btLogin = (Button) findViewById(R.id.btLogin);
 		btRegistrar = (Button) findViewById(R.id.btRegistrar);
 		tvUsuarioLogin = (EditText) findViewById(R.id.tvUsuarioLogin);
+		tvUsuarioSenha = (EditText) findViewById(R.id.tvUsuarioSenha);
 		
 		btLogin.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				fazerLogin(tvUsuarioLogin.getText().toString());
+				fazerLogin(tvUsuarioLogin.getText().toString(), tvUsuarioSenha.getText().toString());
 			}
 		});
 		
@@ -82,7 +83,7 @@ public class TelaMainActivity extends Activity {
 
     public void criarBanco() {
         try {
-//        	deleteDatabase("sniubook");
+//       	deleteDatabase("sniubook");
        	
             BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
             
@@ -97,17 +98,18 @@ public class TelaMainActivity extends Activity {
 //          String sql = "DROP TABLE aluno";
             sql = "CREATE TABLE IF NOT EXISTS aluno (registro_academico INTEGER PRIMARY KEY, nome TEXT, cpf INT8, "
             		+ "email TEXT, campus TEXT, "
-            		+ "turma TEXT, periodo TEXT, codigo_curso_fk TEXT, turno TEXT)";
+            		+ "turma TEXT, periodo TEXT, codigo_curso_fk TEXT, turno TEXT, senha TEXT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE ex_aluno";
             sql = "CREATE TABLE IF NOT EXISTS ex_aluno (cpf INT8 PRIMARY KEY, nome TEXT, "
             		+ "email TEXT, campus TEXT, "
-            		+ "codigo_curso_fk TEXT, turno TEXT)";
+            		+ "codigo_curso_fk TEXT, turno TEXT, senha TEXT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE disciplina";
-            sql = "CREATE TABLE IF NOT EXISTS disciplina (codigo INTEGER PRIMARY KEY, nome TEXT, carga_horaria INTEGER)";
+            sql = "CREATE TABLE IF NOT EXISTS disciplina (codigo INTEGER PRIMARY KEY, nome TEXT, carga_horaria INTEGER"
+            		+ ", rate FLOAT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE professor";
@@ -143,8 +145,8 @@ public class TelaMainActivity extends Activity {
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE comentarios_disciplina";
-//          sql = "CREATE TABLE IF NOT EXISTS comentarios_disciplina (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
-//          		+ "codigo_disciplina_fk TEXT, comentario TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS comentarios_disciplina (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
+            		+ "codigo_disciplina_fk TEXT, comentario TEXT)";
             
 //          String sql = "DROP TABLE comentarios_professor";
 //          sql = "CREATE TABLE IF NOT EXISTS comentarios_professor (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
@@ -163,7 +165,28 @@ public class TelaMainActivity extends Activity {
             BancoDados.execSQL(sql);
             
             sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('AC', 'ANTONIO CARLOS', 'SIS')";
-            BancoDados.execSQL(sql);*/
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (1, 'ANALISE E PROJETO ORIENTADO A OBJETO', 120, 0)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (2, 'TEORIA DOS GRAFOS', 140, 0)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (3, 'TRABALHO INTERDISCIPLINAR DE GRADUACAO VI', 60, 0)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 1)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 2)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 3)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 3)";
+            BancoDados.execSQL(sql);//*/
             
         } catch (Exception erro) {
             exibirMensagem("Erro", "Ocorreu um erro na ao iniciar o Banco de Dados\n" + erro.toString());
@@ -172,32 +195,32 @@ public class TelaMainActivity extends Activity {
         }
     }
     
-    public void fazerLogin(String login) {
+    public void fazerLogin(String login, String senha) {
     	try {
     		BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-    		String sql = "SELECT * FROM aluno WHERE registro_academico = " + login;
+    		String sql = "SELECT * FROM aluno WHERE registro_academico = " + login + " AND senha = '" + senha + "'";
     		Cursor cursor = BancoDados.rawQuery(sql, null);
     		if (cursor.getCount() > 0) {
     			cursor.moveToFirst();
     			Intent proximaTela = new Intent(TelaMainActivity.this, TelaPrincipal.class);
     			BancoDados.close();
     			perfil = new Aluno(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-    					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+    					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9));
     			TelaMainActivity.this.startActivity(proximaTela);
     			TelaMainActivity.this.finish();
     		} else {
-    			sql = "SELECT * FROM ex_aluno WHERE cpf = " + login;
+    			sql = "SELECT * FROM ex_aluno WHERE cpf = " + login + " AND senha = '" + senha + "'";
     			cursor = BancoDados.rawQuery(sql, null);
     			if (cursor.getCount() > 0) {
     				cursor.moveToFirst();
     				Intent proximaTela = new Intent(TelaMainActivity.this, TelaPrincipal.class);
         			BancoDados.close();
         			perfil = new Aluno(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3),
-        					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8));
+        					cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9));
         			TelaMainActivity.this.startActivity(proximaTela);
         			TelaMainActivity.this.finish();
     			} else {
-    				exibirMensagem("Erro", "Login não existente!\nSe você é novo aqui registre-se para poder logar.");
+    				exibirMensagem("Erro", "Login ou senha incorretos!\nSe você é novo aqui registre-se para poder logar.");
     			}
     		}
     	} catch (Exception erro) {

@@ -56,15 +56,25 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvPrincipalCampus"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="73dp"
         android:text="Fazer Login" />
 
     <Button
         android:id="@+id/btRegistrar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btLogin"
         android:layout_below="@+id/btLogin"
-        android:layout_centerHorizontal="true"
         android:text="Registrar" />
+
+    <EditText
+        android:id="@+id/tvUsuarioSenha"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvUsuarioLogin"
+        android:layout_below="@+id/tvPrincipalCampus"
+        android:ems="10"
+        android:hint="Senha"
+        android:inputType="textPassword" />
 
 </RelativeLayout>

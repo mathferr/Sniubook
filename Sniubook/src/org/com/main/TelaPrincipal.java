@@ -20,7 +20,7 @@ public class TelaPrincipal extends Activity {
 	SQLiteDatabase BancoDados;
 	
 	TextView tvPrincipalAluno, tvPrincipalCurso, tvPrincipalCampus;
-	Button btTelaPerfil, btAvaliarCurso, btLogout;
+	Button btTelaPerfil, btAvaliarCurso, btLogout, btVerDisciplinasCurso;
 
 	public static String curso;
 	
@@ -48,6 +48,16 @@ public class TelaPrincipal extends Activity {
 			@Override
 			public void onClick(View v) {
 				Intent proximaTela = new Intent(TelaPrincipal.this, TelaAvaliarCurso.class);
+				TelaPrincipal.this.startActivity(proximaTela);
+				TelaPrincipal.this.finish();
+			}
+		});
+		
+		btVerDisciplinasCurso.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent proximaTela = new Intent(TelaPrincipal.this, TelaDisciplinasCurso.class);
 				TelaPrincipal.this.startActivity(proximaTela);
 				TelaPrincipal.this.finish();
 			}
@@ -106,7 +116,9 @@ public class TelaPrincipal extends Activity {
 			tvPrincipalAluno.setText(perfil.getNome());
 			
 		} catch (Exception erro) {
-			
+			exibirMensagem("Erro", "Ocorreu um erro inesperado.\n" + erro.toString());
+		} finally {
+			BancoDados.close();
 		}
 	}
 	
@@ -117,6 +129,7 @@ public class TelaPrincipal extends Activity {
 		btAvaliarCurso = (Button) findViewById(R.id.btAvaliarCurso);
 		btTelaPerfil = (Button) findViewById(R.id.btTelaPerfil);
 		btLogout = (Button) findViewById(R.id.btLogout);
+		btVerDisciplinasCurso = (Button) findViewById(R.id.btVerDisciplinasCurso);
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

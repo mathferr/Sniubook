@@ -19,7 +19,7 @@ import android.widget.Spinner;
 public class TelaRegistrar extends Activity {
 	
 	Button btCancelar, btConfirmar;
-	EditText tvAlunoRegistro, tvAlunoNome, tvAlunoCpf, tvAlunoEmail;
+	EditText tvAlunoRegistro, tvAlunoNome, tvAlunoCpf, tvAlunoEmail, tvSenha, tvConfSenha;
 	Spinner spCurso, spPeriodo, spCampus, spTurno;
 	RadioButton rbAluno, rbExAluno;
 	
@@ -52,8 +52,14 @@ public class TelaRegistrar extends Activity {
 						(!tvAlunoRegistro.getText().toString().equals("") && rbAluno.isChecked()) ||
 						!spCurso.getSelectedItem().toString().startsWith("(") ||
 						(!spPeriodo.getSelectedItem().toString().startsWith("(") && rbAluno.isChecked()) ||
-						!spCampus.getSelectedItem().toString().startsWith("(")
+						!spCampus.getSelectedItem().toString().startsWith("(") ||
+						!tvSenha.getText().toString().equals("")
 					) {
+					
+					if (!tvSenha.getText().toString().equals(tvConfSenha.getText().toString())) {
+						exibirMensagem("Erro", "A senha e sua confirmação estão diferentes.");
+						return;
+					}
 					
 					BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
 					String sql = "SELECT curso.codigo FROM curso, campus WHERE curso.nome = "
@@ -76,7 +82,8 @@ public class TelaRegistrar extends Activity {
 								turma,
 								spPeriodo.getSelectedItem().toString(), 
 								cursor.getString(0),
-								spTurno.getSelectedItem().toString());
+								spTurno.getSelectedItem().toString(),
+								tvSenha.getText().toString());
 						estadoRadioButtonAluno(rbAluno);
 						estadoRadioButtonAluno(rbExAluno);
 						if (rbAluno.isChecked()) {
@@ -119,11 +126,12 @@ public class TelaRegistrar extends Activity {
 				BancoDados.close();
 				return;
 			}			
-			String sql = "INSERT INTO aluno (registro_academico, nome, cpf, email, codigo_curso_fk, turma, periodo, campus) VALUES "
+			String sql = "INSERT INTO aluno (registro_academico, nome, cpf, email, codigo_curso_fk, turma, periodo, campus, turno, senha) VALUES "
 					+ "(" + aluno.getRegistroAcademico() + ", "
 					+ "'" + aluno.getNome().toUpperCase() + "', " + aluno.getCpf() + ", '" + aluno.getEmail().toLowerCase() + "', "
 					+ "'" + aluno.getCurso().toUpperCase() + "', '" + aluno.getTurma().toUpperCase() + "', "
-					+ "'" + aluno.getPeriodo().toUpperCase() + "', '" + aluno.getCampus().toUpperCase() + "')";
+					+ "'" + aluno.getPeriodo().toUpperCase() + "', '" + aluno.getCampus().toUpperCase() + "', "
+					+ "'" + aluno.getTurno().toUpperCase() + "', '" + aluno.getSenha() + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Cadastro realizado com sucesso.");
 
@@ -147,11 +155,12 @@ public class TelaRegistrar extends Activity {
 				BancoDados.close();
 				return;
 			}	
-			String sql = "INSERT INTO ex_aluno (cpf, nome, email, codigo_curso_fk, campus) VALUES "
+			String sql = "INSERT INTO ex_aluno (cpf, nome, email, codigo_curso_fk, campus, turno, senha) VALUES "
 					+ "(" + aluno.getCpf() + ", "
 					+ "'" + aluno.getNome().toUpperCase() + "', '" + aluno.getEmail().toLowerCase() + "', "
 					+ "'" + aluno.getCurso().toUpperCase() + "', "
-					+ "'" + aluno.getCampus().toUpperCase() + "')";
+					+ "'" + aluno.getCampus().toUpperCase() + "', "
+					+ "'" + aluno.getTurno().toUpperCase() + "', '" + aluno.getSenha() + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Cadastro realizado com sucesso.");
 			
@@ -178,6 +187,8 @@ public class TelaRegistrar extends Activity {
 		spTurno = (Spinner) findViewById(R.id.spTurno);
 		rbAluno = (RadioButton) findViewById(R.id.rbAluno);
 		rbExAluno = (RadioButton) findViewById(R.id.rbExAluno);
+		tvSenha = (EditText) findViewById(R.id.tvSenha);
+		tvConfSenha = (EditText) findViewById(R.id.tvConfSenha);
 	}
 	
 	public void estadoRadioButtonAluno(View view) {
