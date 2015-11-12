@@ -88,4 +88,12 @@
         android:layout_centerHorizontal="true"
         android:text="Ver disciplinas do curso" />
 
+    <Button
+        android:id="@+id/btVerProfessoresCurso"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btVerDisciplinasCurso"
+        android:layout_centerHorizontal="true"
+        android:text="Ver professores do curso" />
+
 </RelativeLayout>

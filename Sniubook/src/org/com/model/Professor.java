@@ -11,14 +11,20 @@ package org.com.model;
  */
 public class Professor extends Pessoa {
     private int registroProfissional;
+    private float rate;
 
-    public Professor(int registroProfissional, String nome, String cpf, String email) {
+    public Professor(int registroProfissional, String nome, String cpf, String email, float rate) {
         super(nome, cpf, email);
         this.registroProfissional = registroProfissional;
+        this.rate = rate;
     }
 
     public int getRegistroProfissional() {
         return registroProfissional;
     }
+    
+    public float getRate() {
+		return rate;
+	}
     
 }

@@ -139,6 +139,7 @@ public class TelaAvaliarCurso extends Activity {
 					+ registroAluno + ", '" + TelaMainActivity.perfil.getCurso() + "', '" + comentario + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
+			txtComentarioCurso.setText("");
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
 		} finally {

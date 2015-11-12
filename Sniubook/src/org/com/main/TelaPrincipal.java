@@ -20,7 +20,7 @@ public class TelaPrincipal extends Activity {
 	SQLiteDatabase BancoDados;
 	
 	TextView tvPrincipalAluno, tvPrincipalCurso, tvPrincipalCampus;
-	Button btTelaPerfil, btAvaliarCurso, btLogout, btVerDisciplinasCurso;
+	Button btTelaPerfil, btAvaliarCurso, btLogout, btVerDisciplinasCurso, btVerProfessoresCurso;
 
 	public static String curso;
 	
@@ -61,6 +61,17 @@ public class TelaPrincipal extends Activity {
 				TelaPrincipal.this.startActivity(proximaTela);
 				TelaPrincipal.this.finish();
 			}
+		});
+		
+		btVerProfessoresCurso.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent proximaTela = new Intent(TelaPrincipal.this, TelaProfessoresCurso.class);
+				TelaPrincipal.this.startActivity(proximaTela);
+				TelaPrincipal.this.finish();
+			}
+			
 		});
 		
 		btLogout.setOnClickListener(new OnClickListener() {
@@ -130,6 +141,7 @@ public class TelaPrincipal extends Activity {
 		btTelaPerfil = (Button) findViewById(R.id.btTelaPerfil);
 		btLogout = (Button) findViewById(R.id.btLogout);
 		btVerDisciplinasCurso = (Button) findViewById(R.id.btVerDisciplinasCurso);
+		btVerProfessoresCurso = (Button) findViewById(R.id.btVerProfessoresCurso);
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

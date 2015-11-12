@@ -2,7 +2,6 @@ package org.com.main;
 
 import java.util.ArrayList;
 
-import org.com.adapter.AdapterCurso;
 import org.com.adapter.AdapterDisciplina;
 import org.com.model.Comentarios;
 import org.com.model.Disciplina;
@@ -184,7 +183,8 @@ public class TelaAvaliarDisciplina extends Activity {
 	}
 	
 	public void reavaliarDisciplina(float rate, int registroAluno) {
-		String sql = "UPDATE avaliacao_disciplina SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno;
+		String sql = "UPDATE avaliacao_disciplina SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno + " "
+				+ "AND codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo();
 		BancoDados.execSQL(sql);
 	}
 	
@@ -192,9 +192,10 @@ public class TelaAvaliarDisciplina extends Activity {
 		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);	
 			String sql = "INSERT INTO comentarios_disciplina (registro_aluno_fk, codigo_disciplina_fk, comentario) VALUES ("
-					+ registroAluno + ", '" + disciplinas.get(posicao).getCodigo() + "', '" + comentario + "')";
+					+ registroAluno + ", " + disciplinas.get(posicao).getCodigo() + ", '" + comentario + "')";
 			BancoDados.execSQL(sql);
 			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
+			txtComentarioDisciplina.setText("");
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
 		} finally {
@@ -209,4 +210,5 @@ public class TelaAvaliarDisciplina extends Activity {
         builder.setNeutralButton("OK", null);
         builder.show();
     }
+	
 }

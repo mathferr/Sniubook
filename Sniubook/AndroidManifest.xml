@@ -55,6 +55,10 @@
             android:name=".TelaDisciplinasCurso"
             android:label="@string/title_activity_tela_disciplinas_curso" >
         </activity>
+        <activity
+            android:name=".TelaProfessoresCurso"
+            android:label="@string/title_activity_tela_professores_curso" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

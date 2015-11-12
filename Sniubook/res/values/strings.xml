@@ -52,5 +52,6 @@
     <string name="title_activity_tela_avaliar_disciplina">TelaAvaliarDisciplina</string>
     <string name="title_activity_tela_avaliar_professor">TelaAvaliarProfessor</string>
     <string name="title_activity_tela_disciplinas_curso">TelaDisciplinasCurso</string>
+    <string name="title_activity_tela_professores_curso">TelaProfessoresCurso</string>
 
 </resources>

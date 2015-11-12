@@ -22,6 +22,8 @@ public class TelaMainActivity extends Activity {
 	SQLiteDatabase BancoDados;
 	Button btRegistrar, btLogin;
 	EditText tvUsuarioLogin, tvUsuarioSenha;
+	
+	
 	//String APP_ID = getString(R.string.facebook_app_id);
 	
 	//ImageView img;
@@ -114,7 +116,7 @@ public class TelaMainActivity extends Activity {
             
 //          String sql = "DROP TABLE professor";
             sql = "CREATE TABLE IF NOT EXISTS professor (registro_profissional INTEGER PRIMARY KEY, nome TEXT, cpf INT8, "
-            		+ "email TEXT)";
+            		+ "email TEXT, rate FLOAT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE curso_disciplina";
@@ -122,21 +124,21 @@ public class TelaMainActivity extends Activity {
             		+ "codigo_disciplina_fk INTEGER)";
             BancoDados.execSQL(sql);
             
-//          String sql = "DROP TABLE professor_disciplina";
-            sql = "CREATE TABLE IF NOT EXISTS professor_disciplina (registro_profissional_fk INTEGER, "
-            		+ "codigo_disciplina_fk INTEGER)";
+//          String sql = "DROP TABLE curso_professor";
+            sql = "CREATE TABLE IF NOT EXISTS curso_professor (registro_profissional_fk INTEGER, "
+            		+ "codigo_curso_fk INTEGER)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE avaliacao_curso";
-            sql = "CREATE TABLE IF NOT EXISTS avaliacao_curso (registro_aluno_fk INTEGER PRIMARY KEY, nota FLOAT, codigo_curso_fk TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS avaliacao_curso (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, nota FLOAT, codigo_curso_fk TEXT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE avaliacao_disciplina";
-            sql = "CREATE TABLE IF NOT EXISTS avaliacao_disciplina (registro_aluno_fk INTEGER PRIMARY KEY, nota FLOAT, codigo_disciplina_fk TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS avaliacao_disciplina (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, nota FLOAT, codigo_disciplina_fk TEXT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE avaliacao_professor";
-            sql = "CREATE TABLE IF NOT EXISTS avaliacao_professor (registro_aluno_fk INTEGER PRIMARY KEY, nota FLOAT, codigo_professor_fk TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS avaliacao_professor (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, nota FLOAT, registro_profissional_fk TEXT)";
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE comentarios_curso";
@@ -150,8 +152,9 @@ public class TelaMainActivity extends Activity {
             BancoDados.execSQL(sql);
             
 //          String sql = "DROP TABLE comentarios_professor";
-//          sql = "CREATE TABLE IF NOT EXISTS comentarios_professor (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
-//          		+ "registro_profissional_fk TEXT, comentario TEXT)";
+            sql = "CREATE TABLE IF NOT EXISTS comentarios_professor (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
+          		    + "registro_profissional_fk TEXT, comentario TEXT)";
+            BancoDados.execSQL(sql);
 /*            
             sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('CIC', 'CIENCIA DA COMPUTACAO', 4)";
             BancoDados.execSQL(sql);
@@ -187,6 +190,18 @@ public class TelaMainActivity extends Activity {
             BancoDados.execSQL(sql);
             
             sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 3)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO professor (registro_profissional, nome, cpf, email, rate) VALUES (1, 'MOISES RAMOS', 123456778910, 'moises.ramos@prof.unibh.br', 0)";
+            BancoDados.execSQL(sql);
+
+            sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('ANTONIO JUNIOR', 12365497801, 'antonio.junior@prof.unibh.br', 0)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 1)";
+            BancoDados.execSQL(sql);
+            
+            sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 2)";
             BancoDados.execSQL(sql);//*/
             
         } catch (Exception erro) {
@@ -198,6 +213,11 @@ public class TelaMainActivity extends Activity {
     
     public void fazerLogin(String login, String senha) {
     	try {
+    		if (login.isEmpty() || senha.isEmpty()) {
+    			exibirMensagem("Erro", "Preencha todos os campos.");
+    			return;
+    		}
+    		
     		BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
     		String sql = "SELECT * FROM aluno WHERE registro_academico = " + login + " AND senha = '" + senha + "'";
     		Cursor cursor = BancoDados.rawQuery(sql, null);
