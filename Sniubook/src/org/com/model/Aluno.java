@@ -29,6 +29,14 @@ public class Aluno extends Pessoa {
 		this.turno = turno;
 		this.senha = senha;
 	}
+    
+    public Aluno(String nome, String cpf, String email, String campus, String curso, String turno, String senha) {
+		super(nome, cpf, email);
+		this.curso = curso;
+		this.campus = campus;
+		this.turno = turno;
+		this.senha = senha;
+	}
 
 	public int getRegistroAcademico() {
         return registroAcademico;

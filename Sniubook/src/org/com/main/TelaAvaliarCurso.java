@@ -3,6 +3,7 @@ package org.com.main;
 import java.util.ArrayList;
 
 import org.com.adapter.AdapterCurso;
+import org.com.model.Aluno;
 import org.com.model.Comentarios;
 
 import android.app.Activity;
@@ -32,6 +33,7 @@ public class TelaAvaliarCurso extends Activity {
 	ListView listComentCurso;
 	
 	ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
+	Aluno perfil = TelaMainActivity.perfil;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +59,19 @@ public class TelaAvaliarCurso extends Activity {
 						String search = "SELECT nota FROM avaliacao_curso WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico();
 						Cursor result = BancoDados.rawQuery(search, null);
 						if (result.getCount() > 0) {
-							reavaliarCurso(ratingCurso.getRating(), TelaMainActivity.perfil.getRegistroAcademico());
+							reavaliarCurso(ratingCurso.getRating(), perfil.getRegistroAcademico());
 						} else {
-							avaliarCurso(ratingCurso.getRating(), TelaMainActivity.perfil.getRegistroAcademico(), TelaMainActivity.perfil.getCurso());
+							search = "SELECT nota FROM avaliacao_curso WHERE registro_aluno_fk = " + perfil.getCpf();
+							result = BancoDados.rawQuery(search, null);
+							if (result.getCount() > 0) {
+								reavaliarCurso(ratingCurso.getRating(), perfil.getCpf());
+							} else {
+								if (perfil.getRegistroAcademico() == 0) {
+									avaliarCurso(ratingCurso.getRating(), perfil.getCpf(), perfil.getCurso());
+								} else {
+									avaliarCurso(ratingCurso.getRating(), perfil.getRegistroAcademico(), perfil.getCurso());
+								}
+							}
 						}
 					}
 				} catch (Exception erro) {
@@ -68,14 +80,18 @@ public class TelaAvaliarCurso extends Activity {
 					BancoDados.close();
 				}				
 				if (!txtComentarioCurso.getText().toString().isEmpty()) {
-					enviarComentario(txtComentarioCurso.getText().toString(), TelaMainActivity.perfil.getRegistroAcademico());
+					if (perfil.getRegistroAcademico() == 0) {
+						enviarComentario(txtComentarioCurso.getText().toString(), perfil.getCpf());
+					} else {
+						enviarComentario(txtComentarioCurso.getText().toString(), perfil.getRegistroAcademico());
+					}
 				}
 				
 				comentarios = getListaComentarios();
 				
 				AdapterCurso adapterCurso = new AdapterCurso(TelaAvaliarCurso.this, comentarios);
 				listComentCurso.setAdapter(adapterCurso);
-				
+				inicializarRatings();
 			}
 		});
 		
@@ -126,11 +142,24 @@ public class TelaAvaliarCurso extends Activity {
 		exibirMensagem("Sucesso", "O curso foi avaliado com sucesso.");
 	}
 	
+	public void avaliarCurso(float rate, String cpfAluno, String curso) {
+		String sql = "INSERT INTO avaliacao_curso (registro_aluno_fk, nota, codigo_curso_fk) VALUES "
+				+ "(" + cpfAluno + ", " + rate + ", '" + curso.toUpperCase() + "')";
+		BancoDados.execSQL(sql);
+		exibirMensagem("Sucesso", "O curso foi avaliado com sucesso.");
+	}
+	
 	public void reavaliarCurso(float rate, int registroAluno) {
 		String sql = "UPDATE avaliacao_curso SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno;
 		BancoDados.execSQL(sql);
 		exibirMensagem("Sucesso", "Você reavaliou o curso.");
 	}
+	
+	public void reavaliarCurso(float rate, String cpfAluno) {
+		String sql = "UPDATE avaliacao_curso SET nota = " + rate + " WHERE registro_aluno_fk = " + cpfAluno;
+		BancoDados.execSQL(sql);
+		exibirMensagem("Sucesso", "Você reavaliou o curso.");
+	}	
 	
 	public void enviarComentario(String comentario, int registroAluno) {
 		try {
@@ -147,11 +176,30 @@ public class TelaAvaliarCurso extends Activity {
 		}
 	}
 	
+	public void enviarComentario(String comentario, String cpfAluno) {
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);	
+			String sql = "INSERT INTO comentarios_curso (registro_aluno_fk, codigo_curso_fk, comentario) VALUES ("
+					+ cpfAluno + ", '" + TelaMainActivity.perfil.getCurso() + "', '" + comentario + "')";
+			BancoDados.execSQL(sql);
+			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
+			txtComentarioCurso.setText("");
+		} catch (Exception erro) {
+			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
+		} finally {
+			BancoDados.close();
+		}
+	}
+	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		tvNomeCursoAvaliacao.setText(TelaPrincipal.curso);
 		ratingCursoGeral.setEnabled(false);
+		inicializarRatings();
+	}
+	
+	public void inicializarRatings() {
 		try {
 			BancoDados= openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
 			String search = "SELECT * FROM avaliacao_curso";
@@ -163,7 +211,8 @@ public class TelaAvaliarCurso extends Activity {
 				ratingCursoGeral.setRating(cursor.getFloat(0));
 			}
 			
-			search = "SELECT nota FROM avaliacao_curso WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico();
+			search = "SELECT nota FROM avaliacao_curso WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico() + " "
+					+ "OR registro_aluno_fk = " + perfil.getCpf();
 			result = BancoDados.rawQuery(search, null);
 			if (result.getCount() > 0) {
 				result.moveToFirst();
@@ -180,12 +229,21 @@ public class TelaAvaliarCurso extends Activity {
 		ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
 		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-			String sql = "SELECT a.nome, cc.comentario, ac.nota FROM comentarios_curso cc, aluno a, avaliacao_curso ac "
+			String sql = "SELECT DISTINCT a.nome, cc.comentario, ac.nota FROM comentarios_curso cc, aluno a, avaliacao_curso ac "
 					+ "WHERE cc.codigo_curso_fk = '" + TelaMainActivity.perfil.getCurso() + "' "
 					+ "AND a.registro_academico = cc.registro_aluno_fk "
 					+ "AND cc.registro_aluno_fk = ac.registro_aluno_fk "
 					+ "ORDER BY cc.codigo DESC LIMIT 5";
 			Cursor cursor = BancoDados.rawQuery(sql, null);
+			while (cursor.moveToNext()) {
+				comentarios.add(new Comentarios(cursor.getString(0), cursor.getString(1), cursor.getFloat(2)));
+			}
+			sql = "SELECT DISTINCT ex.nome, cc.comentario, ac.nota FROM comentarios_curso cc, ex_aluno ex, avaliacao_curso ac "
+					+ "WHERE cc.codigo_curso_fk = '" + TelaMainActivity.perfil.getCurso() + "' "
+					+ "AND ex.cpf = cc.registro_aluno_fk "
+					+ "AND cc.registro_aluno_fk = ac.registro_aluno_fk "
+					+ "ORDER BY cc.codigo DESC LIMIT 5";
+			cursor = BancoDados.rawQuery(sql, null);
 			while (cursor.moveToNext()) {
 				comentarios.add(new Comentarios(cursor.getString(0), cursor.getString(1), cursor.getFloat(2)));
 			}

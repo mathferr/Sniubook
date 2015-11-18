@@ -95,10 +95,13 @@ public class TelaPerfil extends Activity {
 		}
 		
 		tvRegistroAcademico.setText(perfil.getRegistroAcademico() + "");
+		if (perfil.getRegistroAcademico() == 0) tvRegistroAcademico.setText("(Ex-Aluno)");
 		tvNome.setText(perfil.getNome() + "");
 	    tvCPF.setText(perfil.getCpf() + "");
 		tvPeriodo.setText(perfil.getPeriodo() + "");
+		if (perfil.getPeriodo() == null) tvPeriodo.setText("(Ex-Aluno)");
 		tvTurma.setText(perfil.getTurma());
+		if (perfil.getTurma() == null) tvTurma.setText("(Ex-Aluno)");
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

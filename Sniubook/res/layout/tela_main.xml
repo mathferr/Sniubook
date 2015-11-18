@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="17dp"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/icone_sniubook" />
 
     <TextView
         android:id="@+id/tvNomeCursoAvaliacao"

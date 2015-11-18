@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.com.adapter.AdapterDisciplina;
 import org.com.adapter.AdapterProfessor;
+import org.com.model.Aluno;
 import org.com.model.Comentarios;
 import org.com.model.Professor;
 
@@ -36,6 +37,7 @@ public class TelaAvaliarProfessor extends Activity {
 	int posicao = TelaProfessoresCurso.posicao;
 	ArrayList<Professor> professores = TelaProfessoresCurso.professores;
 	ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
+	Aluno perfil = TelaMainActivity.perfil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,13 +71,24 @@ public class TelaAvaliarProfessor extends Activity {
 						exibirMensagem("Erro", "Você deve avaliar o professor de 1 a 5 estrelas");
 					} else {
 						BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-						String search = "SELECT nota FROM avaliacao_professor WHERE registro_aluno_fk = " + TelaMainActivity.perfil.getRegistroAcademico() + " "
+						String search = "SELECT nota FROM avaliacao_professor WHERE registro_aluno_fk = " + perfil.getRegistroAcademico() + " "
 								+ "AND registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional();
 						Cursor result = BancoDados.rawQuery(search, null);
 						if (result.getCount() > 0) {
 							reavaliarProfessor(ratingProfessor.getRating(), TelaMainActivity.perfil.getRegistroAcademico());
 						} else {
-							avaliarProfessor(ratingProfessor.getRating(), TelaMainActivity.perfil.getRegistroAcademico(), professores.get(posicao).getRegistroProfissional());
+							search = "SELECT nota FROM avaliacao_professor WHERE registro_aluno_fk = " + perfil.getCpf() + " "
+									+ "AND registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional();
+							result = BancoDados.rawQuery(search, null);
+							if (result.getCount() > 0) {
+								reavaliarProfessor(ratingProfessor.getRating(), perfil.getCpf());
+							} else {
+								if (perfil.getRegistroAcademico() == 0) {
+									avaliarProfessor(ratingProfessor.getRating(), perfil.getCpf(), professores.get(posicao).getRegistroProfissional());
+								} else {
+									avaliarProfessor(ratingProfessor.getRating(), perfil.getRegistroAcademico(), professores.get(posicao).getRegistroProfissional());
+								}
+							}
 						}
 						inicializarRatings();
 					}
@@ -86,7 +99,11 @@ public class TelaAvaliarProfessor extends Activity {
 				}				
 				
 				if (!txtComentarioProfessor.getText().toString().isEmpty()) {
-					enviarComentario(txtComentarioProfessor.getText().toString(), TelaMainActivity.perfil.getRegistroAcademico());
+					if (perfil.getRegistroAcademico() == 0) {
+						enviarComentario(txtComentarioProfessor.getText().toString(), perfil.getCpf());
+					} else {
+						enviarComentario(txtComentarioProfessor.getText().toString(), perfil.getRegistroAcademico());
+					}
 				}
 				
 				comentarios = getListaComentarios();
@@ -155,12 +172,21 @@ public class TelaAvaliarProfessor extends Activity {
 		ArrayList<Comentarios> comentarios = new ArrayList<Comentarios>();
 		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-			String sql = "SELECT a.nome, cp.comentario, ap.nota FROM comentarios_professor cp, aluno a, avaliacao_professor ap "
+			String sql = "SELECT DISTINCT a.nome, cp.comentario, ap.nota FROM comentarios_professor cp, aluno a, avaliacao_professor ap "
 					+ "WHERE cp.registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional() + " "
 					+ "AND a.registro_academico = cp.registro_aluno_fk "
 					+ "AND cp.registro_aluno_fk = ap.registro_aluno_fk "
 					+ "ORDER BY cp.codigo DESC LIMIT 5";
 			Cursor cursor = BancoDados.rawQuery(sql, null);
+			while (cursor.moveToNext()) {
+				comentarios.add(new Comentarios(cursor.getString(0), cursor.getString(1), cursor.getFloat(2)));
+			}
+			sql = "SELECT DISTINCT ex.nome, cp.comentario, ap.nota FROM comentarios_professor cp, ex_aluno ex, avaliacao_professor ap "
+					+ "WHERE cp.registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional() + " "
+					+ "AND ex.cpf = cp.registro_aluno_fk "
+					+ "AND cp.registro_aluno_fk = ap.registro_aluno_fk "
+					+ "ORDER BY cp.codigo DESC LIMIT 5";
+			cursor = BancoDados.rawQuery(sql, null);
 			while (cursor.moveToNext()) {
 				comentarios.add(new Comentarios(cursor.getString(0), cursor.getString(1), cursor.getFloat(2)));
 			}
@@ -179,8 +205,21 @@ public class TelaAvaliarProfessor extends Activity {
 		exibirMensagem("Sucesso", "O professor foi avaliado com sucesso.");
 	}
 	
+	public void avaliarProfessor(float rate, String cpfAluno, int professor) {
+		String sql = "INSERT INTO avaliacao_professor (registro_aluno_fk, nota, registro_profissional_fk) VALUES "
+				+ "(" + cpfAluno + ", " + rate + ", " + professor + ")";
+		BancoDados.execSQL(sql);
+		exibirMensagem("Sucesso", "O professor foi avaliado com sucesso.");
+	}
+	
 	public void reavaliarProfessor(float rate, int registroAluno) {
 		String sql = "UPDATE avaliacao_professor SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno + " "
+				+ "AND registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional();
+		BancoDados.execSQL(sql);
+	}
+	
+	public void reavaliarProfessor(float rate, String cpfAluno) {
+		String sql = "UPDATE avaliacao_professor SET nota = " + rate + " WHERE registro_aluno_fk = " + cpfAluno + " "
 				+ "AND registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional();
 		BancoDados.execSQL(sql);
 	}
@@ -199,6 +238,21 @@ public class TelaAvaliarProfessor extends Activity {
 			BancoDados.close();
 		}
 	}
+
+	public void enviarComentario(String comentario, String cpfAluno) {
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);	
+			String sql = "INSERT INTO comentarios_professor (registro_aluno_fk, registro_profissional_fk, comentario) VALUES ("
+					+ cpfAluno + ", " + professores.get(posicao).getRegistroProfissional() + ", '" + comentario + "')";
+			BancoDados.execSQL(sql);
+			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
+			txtComentarioProfessor.setText("");
+		} catch (Exception erro) {
+			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
+		} finally {
+			BancoDados.close();
+		}
+	}
 	
 	public void inicializarComponentes() {
 		tvNomeProfessorAvaliacao = (TextView) findViewById(R.id.tvNomeProfessorAvaliacao);
@@ -208,6 +262,7 @@ public class TelaAvaliarProfessor extends Activity {
 		btVoltarAvaliarProfessor = (Button) findViewById(R.id.btVoltarAvaliarProfessor);
 		listComentProfessor = (ListView) findViewById(R.id.listComentProfessor);
 		txtComentarioProfessor = (EditText) findViewById(R.id.txtComentarioProfessor);
+		ratingProfessorGeral.setEnabled(false);
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {

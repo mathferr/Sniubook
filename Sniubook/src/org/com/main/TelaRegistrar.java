@@ -73,22 +73,31 @@ public class TelaRegistrar extends Activity {
 								spTurno.getSelectedItem().toString().charAt(0) + "-" +
 								spCampus.getSelectedItem().toString().substring(0,2);
 						
-						Aluno aluno = new Aluno(
-								Integer.parseInt(tvAlunoRegistro.getText().toString()),
-								tvAlunoNome.getText().toString(), 
-								tvAlunoCpf.getText().toString(), 
-								tvAlunoEmail.getText().toString(),  
-								spCampus.getSelectedItem().toString().substring(0,2),
-								turma,
-								spPeriodo.getSelectedItem().toString(), 
-								cursor.getString(0),
-								spTurno.getSelectedItem().toString(),
-								tvSenha.getText().toString());
+						
 						estadoRadioButtonAluno(rbAluno);
 						estadoRadioButtonAluno(rbExAluno);
 						if (rbAluno.isChecked()) {
+							Aluno aluno = new Aluno(
+									Integer.parseInt(tvAlunoRegistro.getText().toString()),
+									tvAlunoNome.getText().toString(), 
+									tvAlunoCpf.getText().toString(), 
+									tvAlunoEmail.getText().toString(),  
+									spCampus.getSelectedItem().toString().substring(0,2),
+									turma,
+									spPeriodo.getSelectedItem().toString(), 
+									cursor.getString(0),
+									spTurno.getSelectedItem().toString(),
+									tvSenha.getText().toString());
 							registrarAluno(aluno);
 						} else if (rbExAluno.isChecked()) {
+							Aluno aluno = new Aluno(
+									tvAlunoNome.getText().toString(), 
+									tvAlunoCpf.getText().toString(), 
+									tvAlunoEmail.getText().toString(),  
+									spCampus.getSelectedItem().toString().substring(0,2),
+									cursor.getString(0),
+									spTurno.getSelectedItem().toString(),
+									tvSenha.getText().toString());
 							registrarExAluno(aluno);
 						}
 						
