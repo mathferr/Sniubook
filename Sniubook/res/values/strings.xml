@@ -20,8 +20,8 @@
 
     <string-array name="Curso">
         <item>(Escolha seu Curso)</item>
-        <item>Ciencia da Computacao</item>
-        <item>Sistemas de Informacao</item>
+        <item>CIC - Ciencia da Computacao</item>
+        <item>SIS - Sistemas de Informacao</item>
     </string-array>
 
     <string name="prompt_periodo">(Escolha seu Periodo)</string>
