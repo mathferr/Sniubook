@@ -65,5 +65,33 @@ public class Aluno extends Pessoa {
     public String getSenha() {
 		return senha;
 	}
+
+	public void setRegistroAcademico(int registroAcademico) {
+		this.registroAcademico = registroAcademico;
+	}
+
+	public void setCurso(String curso) {
+		this.curso = curso;
+	}
+
+	public void setTurma(String turma) {
+		this.turma = turma;
+	}
+
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+
+	public void setCampus(String campus) {
+		this.campus = campus;
+	}
+
+	public void setTurno(String turno) {
+		this.turno = turno;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
     
 }

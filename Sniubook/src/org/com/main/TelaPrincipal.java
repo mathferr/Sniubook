@@ -23,6 +23,7 @@ public class TelaPrincipal extends Activity {
 	Button btTelaPerfil, btAvaliarCurso, btLogout, btVerDisciplinasCurso, btVerProfessoresCurso;
 
 	public static String curso;
+	public static String campus;
 	
 	Aluno perfil = TelaMainActivity.perfil;
 	
@@ -108,7 +109,6 @@ public class TelaPrincipal extends Activity {
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
-		String campus;
 		try{
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
 			String sql = "SELECT c.nome, cp.nome FROM curso c, campus cp WHERE c.codigo = '" + perfil.getCurso()

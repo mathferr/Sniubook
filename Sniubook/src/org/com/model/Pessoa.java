@@ -32,5 +32,15 @@ public class Pessoa {
         return email;
     }
     
+    public void setNome(String nome) {
+		this.nome = nome;
+	}
     
+    public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+    
+    public void setEmail(String email) {
+		this.email = email;
+	}
 }

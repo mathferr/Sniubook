@@ -106,13 +106,30 @@
         android:layout_alignLeft="@+id/txtPerfilNome"
         android:layout_alignRight="@+id/tvPerfilCPF"
         android:text="Turma do Aluno" />
+    
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imageTelaPerfil"
+        android:layout_below="@+id/imageTelaPerfil"
+        android:layout_marginTop="18dp"
+        android:text="Email:" />
+    
+    <EditText
+        android:id="@+id/txtPerfilEmail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView12"
+        android:hint="Informe seu email" />
+
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imageTelaPerfil"
-        android:layout_below="@+id/imageTelaPerfil"
+        android:layout_alignLeft="@+id/textView12"
+        android:layout_below="@+id/txtPerfilEmail"
         android:layout_marginTop="18dp"
         android:text="Curso:" />
 

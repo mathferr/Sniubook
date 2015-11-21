@@ -22,10 +22,12 @@ public class TelaPerfil extends Activity {
 	
 	SQLiteDatabase BancoDados;
 	ImageView imageTelaPerfil;
-	Button btDeslogar, btPerfilAlterarSenha;
+	Button btDeslogar, btPerfilAlterarSenha, btAlterarPerfil;
 	TextView tvPerfilRegistroAcademico, tvPerfilCPF, tvPerfilTurma;
-	EditText txtPerfilNome;
+	EditText txtPerfilNome, txtPerfilEmail;
 	Spinner spPerfilCurso, spPerfilPeriodo, spPerfilCampus, spPerfilTurno;
+	
+	Aluno perfil = TelaMainActivity.perfil;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,28 @@ public class TelaPerfil extends Activity {
 			
 		});
 		
+		btAlterarPerfil.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Aluno aluno = new Aluno(Integer.parseInt(tvPerfilRegistroAcademico.getText().toString()),
+										txtPerfilNome.getText().toString(),
+										tvPerfilCPF.getText().toString(),
+										txtPerfilEmail.getText().toString(),
+										spPerfilCampus.getSelectedItem().toString().substring(0, 2),
+										null,
+										spPerfilPeriodo.getSelectedItem().toString(),
+										spPerfilCurso.getSelectedItem().toString().substring(0, 3),
+										(spPerfilTurno.getSelectedItem().toString().charAt(0) + "").toUpperCase(),
+										null);
+				alterarPerfil(aluno);
+				Intent proximaTela = new Intent(TelaPerfil.this, TelaPrincipal.class);
+				TelaPerfil.this.startActivity(proximaTela);
+				TelaPerfil.this.finish();
+			}
+			
+		});
+		
 		btPerfilAlterarSenha.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -52,6 +76,7 @@ public class TelaPerfil extends Activity {
 				// TODO Auto-generated method stub
 				
 			}
+			
 		});
 	}
 
@@ -86,13 +111,14 @@ public class TelaPerfil extends Activity {
 		spPerfilTurno = (Spinner) findViewById(R.id.spPerfilTurno);
 		imageTelaPerfil = (ImageView) findViewById(R.id.imageTelaPerfil);
 		btPerfilAlterarSenha = (Button) findViewById(R.id.btPerfilAlterarSenha);
+		btAlterarPerfil = (Button) findViewById(R.id.btAlterarPerfil);
+		txtPerfilEmail = (EditText) findViewById(R.id.txtPerfilEmail);
 	}
 	
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		String curso, campus;
-		Aluno perfil = TelaMainActivity.perfil;
 		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
 			String sql = "SELECT c.codigo, cp.codigo FROM curso c, campus cp WHERE c.codigo = '" + perfil.getCurso()
@@ -144,6 +170,44 @@ public class TelaPerfil extends Activity {
 		}
 		tvPerfilTurma.setText(perfil.getTurma());
 		if (perfil.getTurma() == null) tvPerfilTurma.setText("(Ex-Aluno)");
+		txtPerfilEmail.setText(perfil.getEmail());
+	}
+	
+	public void alterarPerfil(Aluno aluno) {
+		String turma = aluno.getCurso() + aluno.getPeriodo() + aluno.getTurno() + "-" + aluno.getCampus();
+		try {
+			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);
+			String sql;
+			if (aluno.getRegistroAcademico() != 0) {
+				sql = "UPDATE aluno SET nome = '" + aluno.getNome().toUpperCase() + "', "
+						+ "cpf = " + aluno.getCpf() + ", "
+						+ "email = '" + aluno.getEmail().toLowerCase() + "', "
+						+ "campus = '" + aluno.getCampus() + "', "
+						+ "turma = '" + turma.toUpperCase() + "', "
+						+ "periodo = '" + aluno.getPeriodo() + "', "
+						+ "turno = '" + aluno.getTurno() + "'"
+						+ "WHERE registro_academico = " + aluno.getRegistroAcademico();
+			} else {
+				sql = "UPDATE ex_aluno SET nome = '" + aluno.getNome().toUpperCase() + "', "
+						+ "email = '" + aluno.getEmail() + "', "
+						+ "campus = '" + aluno.getCampus() + "', "
+						+ "turno = '" + aluno.getTurno() + "'"
+						+ "WHERE cpf = " + aluno.getCpf();
+			}
+			BancoDados.execSQL(sql);
+			exibirMensagem("Sucesso", "Perfil alterado com sucesso.");
+			TelaMainActivity.perfil.setNome(aluno.getNome().toUpperCase());
+			TelaMainActivity.perfil.setEmail(aluno.getEmail().toLowerCase());
+			TelaMainActivity.perfil.setCurso(aluno.getCurso());
+			TelaMainActivity.perfil.setCampus(aluno.getCampus());
+			TelaMainActivity.perfil.setPeriodo(aluno.getPeriodo());
+			TelaMainActivity.perfil.setTurno(aluno.getTurno());
+			TelaMainActivity.perfil.setTurma(turma.toUpperCase());
+		} catch (Exception erro) {
+			exibirMensagem("Erro", "Ocorreu um erro ao alterar o perfil.\n" + erro.toString());
+		} finally {
+			BancoDados.close();
+		}
 	}
 	
 	public void exibirMensagem(String tituloMensagem, String mensagem) {
