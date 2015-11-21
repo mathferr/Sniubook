@@ -59,6 +59,10 @@
             android:name=".TelaProfessoresCurso"
             android:label="@string/title_activity_tela_professores_curso" >
         </activity>
+        <activity
+            android:name=".TelaAlterarSenha"
+            android:label="@string/title_activity_tela_alterar_senha" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

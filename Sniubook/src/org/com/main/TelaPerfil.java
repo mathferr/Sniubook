@@ -73,7 +73,9 @@ public class TelaPerfil extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				Intent proximaTela = new Intent(TelaPerfil.this, TelaAlterarSenha.class);
+				TelaPerfil.this.startActivity(proximaTela);
+				TelaPerfil.this.finish();
 				
 			}
 			
