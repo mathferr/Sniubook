@@ -155,54 +155,66 @@ public class TelaMainActivity extends Activity {
             sql = "CREATE TABLE IF NOT EXISTS comentarios_professor (codigo INTEGER PRIMARY KEY, registro_aluno_fk INTEGER, "
           		    + "registro_profissional_fk TEXT, comentario TEXT)";
             BancoDados.execSQL(sql);
-/*            
-            sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('CIC', 'CIENCIA DA COMPUTACAO', 4)";
+            
+//			String sql = "DROP TABLE controlador";            
+            sql = "CREATE TABLE IF NOT EXISTS controlador (status TEXT)";
             BancoDados.execSQL(sql);
             
-            sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('SIS', 'SISTEMAS DE INFORMACAO', 4)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('ES', 'ESTORIL', 'CIC-SIS')";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('CM', 'CRISTIANO MACHADO', 'CIC')";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('AC', 'ANTONIO CARLOS', 'SIS')";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (1, 'ANALISE E PROJETO ORIENTADO A OBJETO', 120, 0)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (2, 'TEORIA DOS GRAFOS', 140, 0)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (3, 'TRABALHO INTERDISCIPLINAR DE GRADUACAO VI', 60, 0)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 1)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 2)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 3)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 3)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO professor (registro_profissional, nome, cpf, email, rate) VALUES (1, 'MOISES RAMOS', 123456778910, 'moises.ramos@prof.unibh.br', 0)";
-            BancoDados.execSQL(sql);
+            String controlador = "SELECT * FROM controlador";
+            Cursor controler = BancoDados.rawQuery(controlador, null);
 
-            sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('ANTONIO JUNIOR', 12365497801, 'antonio.junior@prof.unibh.br', 0)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 1)";
-            BancoDados.execSQL(sql);
-            
-            sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 2)";
-            BancoDados.execSQL(sql);//*/
+            if (controler.getCount() == 0) {
+            	sql = "INSERT INTO controlador (status) VALUES ('OK')";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('CIC', 'CIENCIA DA COMPUTACAO', 4)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('SIS', 'SISTEMAS DE INFORMACAO', 4)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('ES', 'ESTORIL', 'CIC-SIS')";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('CM', 'CRISTIANO MACHADO', 'CIC')";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('AC', 'ANTONIO CARLOS', 'SIS')";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (1, 'ANALISE E PROJETO ORIENTADO A OBJETO', 120, 0)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (2, 'TEORIA DOS GRAFOS', 140, 0)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (3, 'TRABALHO INTERDISCIPLINAR DE GRADUACAO VI', 60, 0)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 1)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 2)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 3)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 3)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO professor (registro_profissional, nome, cpf, email, rate) VALUES (1, 'MOISES RAMOS', 123456778910, 'moises.ramos@prof.unibh.br', 0)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('ANTONIO JUNIOR', 12365497801, 'antonio.junior@prof.unibh.br', 0)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 1)";
+            	BancoDados.execSQL(sql);
+
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 2)";
+            	BancoDados.execSQL(sql);//*/
+            }
             
         } catch (Exception erro) {
             exibirMensagem("Erro", "Ocorreu um erro na ao iniciar o Banco de Dados\n" + erro.toString());
