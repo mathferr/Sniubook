@@ -176,6 +176,7 @@ public class TelaAvaliarProfessor extends Activity {
 					+ "WHERE cp.registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional() + " "
 					+ "AND a.registro_academico = cp.registro_aluno_fk "
 					+ "AND cp.registro_aluno_fk = ap.registro_aluno_fk "
+					+ "AND cp.registro_profissional_fk = ap.registro_profissional_fk "
 					+ "ORDER BY cp.codigo DESC LIMIT 5";
 			Cursor cursor = BancoDados.rawQuery(sql, null);
 			while (cursor.moveToNext()) {
@@ -185,6 +186,7 @@ public class TelaAvaliarProfessor extends Activity {
 					+ "WHERE cp.registro_profissional_fk = " + professores.get(posicao).getRegistroProfissional() + " "
 					+ "AND ex.cpf = cp.registro_aluno_fk "
 					+ "AND cp.registro_aluno_fk = ap.registro_aluno_fk "
+					+ "AND cp.registro_profissional_fk = ap.registro_profissional_fk "
 					+ "ORDER BY cp.codigo DESC LIMIT 5";
 			cursor = BancoDados.rawQuery(sql, null);
 			while (cursor.moveToNext()) {

@@ -197,6 +197,7 @@ public class TelaAvaliarDisciplina extends Activity {
 					+ "WHERE cd.codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo() + " "
 					+ "AND a.registro_academico = cd.registro_aluno_fk "
 					+ "AND cd.registro_aluno_fk = ad.registro_aluno_fk "
+					+ "AND cd.codigo_disciplina_fk = ad.codigo_disciplina_fk "
 					+ "ORDER BY cd.codigo DESC LIMIT 5";
 			Cursor cursor = BancoDados.rawQuery(sql, null);
 			while (cursor.moveToNext()) {
@@ -206,6 +207,7 @@ public class TelaAvaliarDisciplina extends Activity {
 					+ "WHERE cd.codigo_disciplina_fk = " + disciplinas.get(posicao).getCodigo() + " "
 					+ "AND ex.cpf = cd.registro_aluno_fk "
 					+ "AND cd.registro_aluno_fk = ad.registro_aluno_fk "
+					+ "AND cd.codigo_disciplina_fk = ad.codigo_disciplina_fk "
 					+ "ORDER BY cd.codigo DESC LIMIT 5";
 			cursor = BancoDados.rawQuery(sql, null);
 			while (cursor.moveToNext()) {

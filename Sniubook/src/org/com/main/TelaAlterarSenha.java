@@ -48,7 +48,6 @@ public class TelaAlterarSenha extends Activity {
 				String senha;
 				senha = perfil.getSenha();
 				alterarSenha(senha);
-				
 			}
 		});
 	}
@@ -87,17 +86,17 @@ public class TelaAlterarSenha extends Activity {
 		try {
 			BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_WRITEABLE, null);
 			String sql;
-			if(eTSenhaAtual.equals(senhaAtual)){
-			if(eTNovaSenha.equals(eTConfirmaSenha)){
-				if (perfil.getRegistroAcademico() != 0) {
-					sql = "UPDATE aluno SET senha = '" + eTNovaSenha;
-				} else {
-					sql = "UPDATE ex_aluno SET senha = '" + eTNovaSenha;
+			if(eTSenhaAtual.getText().toString().equals(senhaAtual)){
+				if(eTNovaSenha.getText().toString().equals(eTConfirmaSenha.getText().toString())){
+					if (perfil.getRegistroAcademico() != 0) {
+						sql = "UPDATE aluno SET senha = '" + eTNovaSenha.getText().toString() + "' WHERE registro_academico = " + perfil.getRegistroAcademico();
+					} else {
+						sql = "UPDATE ex_aluno SET senha = '" + eTNovaSenha.getText().toString() + "' WHERE cpf = " + perfil.getCpf();
+					}
+				}else {
+					exibirMensagem("Erro", "As senhas não conferem!");
+					return;
 				}
-			}else {
-				exibirMensagem("Erro", "As senhas não conferem!");
-				return;
-			}
 			}else {
 				exibirMensagem("Erro", "Senha atual invalida!");
 				return;

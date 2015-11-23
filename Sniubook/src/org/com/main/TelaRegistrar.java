@@ -62,8 +62,8 @@ public class TelaRegistrar extends Activity {
 					}
 					
 					BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
-					String sql = "SELECT curso.codigo FROM curso, campus WHERE curso.nome = "
-							+ "'" + spCurso.getSelectedItem().toString().toUpperCase() + "' AND campus.codigo = "
+					String sql = "SELECT curso.codigo FROM curso, campus WHERE curso.codigo = "
+							+ "'" + spCurso.getSelectedItem().toString().substring(0,3) + "' AND campus.codigo = "
 							+ "'" + spCampus.getSelectedItem().toString().substring(0, 2).toUpperCase() + "'";
 					Cursor cursor = BancoDados.rawQuery(sql, null);
 					if (cursor.getCount() > 0) {
