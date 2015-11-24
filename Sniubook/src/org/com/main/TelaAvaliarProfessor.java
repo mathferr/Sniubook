@@ -204,14 +204,12 @@ public class TelaAvaliarProfessor extends Activity {
 		String sql = "INSERT INTO avaliacao_professor (registro_aluno_fk, nota, registro_profissional_fk) VALUES "
 				+ "(" + registroAluno + ", " + rate + ", " + professor + ")";
 		BancoDados.execSQL(sql);
-		exibirMensagem("Sucesso", "O professor foi avaliado com sucesso.");
 	}
 	
 	public void avaliarProfessor(float rate, String cpfAluno, int professor) {
 		String sql = "INSERT INTO avaliacao_professor (registro_aluno_fk, nota, registro_profissional_fk) VALUES "
 				+ "(" + cpfAluno + ", " + rate + ", " + professor + ")";
 		BancoDados.execSQL(sql);
-		exibirMensagem("Sucesso", "O professor foi avaliado com sucesso.");
 	}
 	
 	public void reavaliarProfessor(float rate, int registroAluno) {
@@ -232,7 +230,6 @@ public class TelaAvaliarProfessor extends Activity {
 			String sql = "INSERT INTO comentarios_professor (registro_aluno_fk, registro_profissional_fk, comentario) VALUES ("
 					+ registroAluno + ", " + professores.get(posicao).getRegistroProfissional() + ", '" + comentario + "')";
 			BancoDados.execSQL(sql);
-			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
 			txtComentarioProfessor.setText("");
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
@@ -247,7 +244,6 @@ public class TelaAvaliarProfessor extends Activity {
 			String sql = "INSERT INTO comentarios_professor (registro_aluno_fk, registro_profissional_fk, comentario) VALUES ("
 					+ cpfAluno + ", " + professores.get(posicao).getRegistroProfissional() + ", '" + comentario + "')";
 			BancoDados.execSQL(sql);
-			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
 			txtComentarioProfessor.setText("");
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());

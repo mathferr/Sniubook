@@ -11,40 +11,34 @@
 
     <string-array name="Campus">
         <item>(Escolha seu Campus)</item>
-        <item>AC - Antonio Carlos</item>
-        <item>CM - Cristiano Machado</item>
-        <item>ES - Estoril</item>
+        <item>AC - ANTONIO CARLOS</item>
+        <item>CM - CRISTIANO MACHADO</item>
+        <item>ES - ESTORIL</item>
     </string-array>
 
     <string name="prompt_curso">(Escolha seu Curso)</string>
 
     <string-array name="Curso">
         <item>(Escolha seu Curso)</item>
-        <item>CIC - Ciencia da Computacao</item>
-        <item>SIS - Sistemas de Informacao</item>
+        <item>CIC - CIENCIA DA COMPUTACAO</item>
+        <item>SIS - SISTEMAS DE INFORMACAO</item>
+        <item>PSI - PSICOLOGIA</item>
+        <item>ENC - ENGENHARIA CIVIL</item>
     </string-array>
 
-    <string name="prompt_periodo">(Escolha seu Periodo)</string>
+    <string name="prompt_periodo">(Selecione um curso primeiro)</string>
 
     <string-array name="Periodo">
-        <item>(Escolha seu Periodo)</item>
-        <item>1A</item>
-        <item>1B</item>
-        <item>2A</item>
-        <item>2B</item>
-        <item>3A</item>
-        <item>3B</item>
-        <item>4A</item>
-        <item>4B</item>
+        <item>(Selecione um curso primeiro)</item>
     </string-array>
 
     <string name="prompt_turno">(Escolha seu Turno)</string>
 
     <string-array name="Turno">
         <item>(Escolha seu Turno)</item>
-        <item>Manhã</item>
-        <item>Tarde</item>
-        <item>Noite</item>
+        <item>MANHÃ</item>
+        <item>TARDE</item>
+        <item>NOITE</item>
     </string-array>
 
     <string name="title_activity_tela_avaliar_curso">TelaAvaliarCurso</string>

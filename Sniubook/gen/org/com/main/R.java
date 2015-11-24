@@ -285,12 +285,12 @@ containing a value of this type.
         public static final int scrollView1=0x7f0a002b;
         public static final int small=0x7f0a0005;
         public static final int spCampus=0x7f0a006c;
-        public static final int spCurso=0x7f0a006e;
+        public static final int spCurso=0x7f0a006d;
         public static final int spPerfilCampus=0x7f0a0053;
         public static final int spPerfilCurso=0x7f0a0051;
         public static final int spPerfilPeriodo=0x7f0a0055;
         public static final int spPerfilTurno=0x7f0a0057;
-        public static final int spPeriodo=0x7f0a006d;
+        public static final int spPeriodo=0x7f0a006e;
         public static final int spTurno=0x7f0a006f;
         public static final int standard=0x7f0a000b;
         public static final int textView1=0x7f0a0020;

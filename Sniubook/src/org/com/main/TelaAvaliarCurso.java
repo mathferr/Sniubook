@@ -139,26 +139,22 @@ public class TelaAvaliarCurso extends Activity {
 		String sql = "INSERT INTO avaliacao_curso (registro_aluno_fk, nota, codigo_curso_fk) VALUES "
 				+ "(" + registroAluno + ", " + rate + ", '" + curso.toUpperCase() + "')";
 		BancoDados.execSQL(sql);
-		exibirMensagem("Sucesso", "O curso foi avaliado com sucesso.");
 	}
 	
 	public void avaliarCurso(float rate, String cpfAluno, String curso) {
 		String sql = "INSERT INTO avaliacao_curso (registro_aluno_fk, nota, codigo_curso_fk) VALUES "
 				+ "(" + cpfAluno + ", " + rate + ", '" + curso.toUpperCase() + "')";
 		BancoDados.execSQL(sql);
-		exibirMensagem("Sucesso", "O curso foi avaliado com sucesso.");
 	}
 	
 	public void reavaliarCurso(float rate, int registroAluno) {
 		String sql = "UPDATE avaliacao_curso SET nota = " + rate + " WHERE registro_aluno_fk = " + registroAluno;
 		BancoDados.execSQL(sql);
-		exibirMensagem("Sucesso", "Você reavaliou o curso.");
 	}
 	
 	public void reavaliarCurso(float rate, String cpfAluno) {
 		String sql = "UPDATE avaliacao_curso SET nota = " + rate + " WHERE registro_aluno_fk = " + cpfAluno;
 		BancoDados.execSQL(sql);
-		exibirMensagem("Sucesso", "Você reavaliou o curso.");
 	}	
 	
 	public void enviarComentario(String comentario, int registroAluno) {
@@ -167,7 +163,6 @@ public class TelaAvaliarCurso extends Activity {
 			String sql = "INSERT INTO comentarios_curso (registro_aluno_fk, codigo_curso_fk, comentario) VALUES ("
 					+ registroAluno + ", '" + TelaMainActivity.perfil.getCurso() + "', '" + comentario + "')";
 			BancoDados.execSQL(sql);
-			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
 			txtComentarioCurso.setText("");
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());
@@ -182,7 +177,6 @@ public class TelaAvaliarCurso extends Activity {
 			String sql = "INSERT INTO comentarios_curso (registro_aluno_fk, codigo_curso_fk, comentario) VALUES ("
 					+ cpfAluno + ", '" + TelaMainActivity.perfil.getCurso() + "', '" + comentario + "')";
 			BancoDados.execSQL(sql);
-			exibirMensagem("Sucesso", "Comentario enviado com sucesso");
 			txtComentarioCurso.setText("");
 		} catch (Exception erro) {
 			exibirMensagem("Erro", "Ocorreu um erro ao enviar o comentário.\n" + erro.toString());

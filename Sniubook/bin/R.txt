@@ -148,12 +148,12 @@ int id right 0x7f0a0011
 int id scrollView1 0x7f0a002b
 int id small 0x7f0a0005
 int id spCampus 0x7f0a006c
-int id spCurso 0x7f0a006e
+int id spCurso 0x7f0a006d
 int id spPerfilCampus 0x7f0a0053
 int id spPerfilCurso 0x7f0a0051
 int id spPerfilPeriodo 0x7f0a0055
 int id spPerfilTurno 0x7f0a0057
-int id spPeriodo 0x7f0a006d
+int id spPeriodo 0x7f0a006e
 int id spTurno 0x7f0a006f
 int id standard 0x7f0a000b
 int id textView1 0x7f0a0020

@@ -110,34 +110,34 @@
 
         <Spinner
             android:id="@+id/spCampus"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/tvConfSenha"
             android:entries="@array/Campus"
             android:prompt="@string/prompt_campus" />
-
+        
         <Spinner
-            android:id="@+id/spPeriodo"
-            android:layout_width="wrap_content"
+            android:id="@+id/spCurso"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/spCampus"
-            android:entries="@array/Periodo"
-            android:prompt="@string/prompt_periodo" />
-
-        <Spinner
-            android:id="@+id/spCurso"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/spPeriodo"
             android:entries="@array/Curso"
             android:prompt="@string/prompt_curso" />
 
         <Spinner
+            android:id="@+id/spPeriodo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/spCurso"
+            android:entries="@array/Periodo"
+            android:prompt="@string/prompt_periodo" />
+
+        <Spinner
             android:id="@+id/spTurno"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/spCurso"

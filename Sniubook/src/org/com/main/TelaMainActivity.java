@@ -23,7 +23,6 @@ public class TelaMainActivity extends Activity {
 	Button btRegistrar, btLogin;
 	EditText tvUsuarioLogin, tvUsuarioSenha;
 	
-	
 	//String APP_ID = getString(R.string.facebook_app_id);
 	
 	//ImageView img;
@@ -85,7 +84,7 @@ public class TelaMainActivity extends Activity {
 
     public void criarBanco() {
         try {
-//       	deleteDatabase("sniubook");
+       	//deleteDatabase("sniubook");
        	
             BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
             
@@ -173,13 +172,19 @@ public class TelaMainActivity extends Activity {
             	sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('SIS', 'SISTEMAS DE INFORMACAO', 4)";
             	BancoDados.execSQL(sql);
 
+            	sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('PSI', 'PSICOLOGIA', 5)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso(codigo, nome, duracao) VALUES ('ENC', 'ENGENHARIA CIVIL', 5)";
+            	BancoDados.execSQL(sql);
+            	
             	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('ES', 'ESTORIL', 'CIC-SIS')";
             	BancoDados.execSQL(sql);
 
-            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('CM', 'CRISTIANO MACHADO', 'CIC')";
+            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('CM', 'CRISTIANO MACHADO', 'CIC-SIS-PSI-ENC')";
             	BancoDados.execSQL(sql);
 
-            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('AC', 'ANTONIO CARLOS', 'SIS')";
+            	sql = "INSERT INTO campus(codigo, nome, lista_curso) VALUES ('AC', 'ANTONIO CARLOS', 'CIC-SIS-PSI-ENC')";
             	BancoDados.execSQL(sql);
 
             	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (1, 'ANALISE E PROJETO ORIENTADO A OBJETO', 120, 0)";
@@ -189,6 +194,18 @@ public class TelaMainActivity extends Activity {
             	BancoDados.execSQL(sql);
 
             	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (3, 'TRABALHO INTERDISCIPLINAR DE GRADUACAO VI', 60, 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (4, 'PSICOPEDAGOGIA', 40, 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (5, 'FILOSOFIA', 80, 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (6, 'QUIMICA GERAL', 80, 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO disciplina(codigo, nome, carga_horaria, rate) VALUES (7, 'TOPOGRAFIA', 80, 0)";
             	BancoDados.execSQL(sql);
 
             	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 1)";
@@ -200,19 +217,79 @@ public class TelaMainActivity extends Activity {
             	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('CIC', 3)";
             	BancoDados.execSQL(sql);
 
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 1)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 2)";
+            	BancoDados.execSQL(sql);
+            	
             	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('SIS', 3)";
             	BancoDados.execSQL(sql);
-
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('PSI', 3)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('PSI', 4)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('PSI', 5)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('ENC', 3)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('ENC', 6)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_disciplina(codigo_curso_fk, codigo_disciplina_fk) VALUES ('ENC', 7)";
+            	BancoDados.execSQL(sql);
+            	
             	sql = "INSERT INTO professor (registro_profissional, nome, cpf, email, rate) VALUES (1, 'MOISES RAMOS', 123456778910, 'moises.ramos@prof.unibh.br', 0)";
             	BancoDados.execSQL(sql);
 
             	sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('ANTONIO JUNIOR', 12365497801, 'antonio.junior@prof.unibh.br', 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('RAFAEL SILVA', 98765443211, 'rafael.silva@prof.unibh.br', 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('RODRIGO GONCALVES', 1235364741, 'rodrigo.goncalves@prof.unibh.br', 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('FERNANDA CARVALHO', 1235324741, 'fernanda.carvalho@prof.unibh.br', 0)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO professor (nome, cpf, email, rate) VALUES ('LEANDRO FERREIRA', 1735364741, 'leandro.ferreira@prof.unibh.br', 0)";
             	BancoDados.execSQL(sql);
 
             	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 1)";
             	BancoDados.execSQL(sql);
 
             	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('CIC', 2)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('SIS', 1)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('SIS', 2)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('PSI', 3)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('PSI', 4)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('PSI', 5)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('ENC', 4)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('ENC', 5)";
+            	BancoDados.execSQL(sql);
+            	
+            	sql = "INSERT INTO curso_professor(codigo_curso_fk, registro_profissional_fk) VALUES ('ENC', 6)";
             	BancoDados.execSQL(sql);//*/
             }
             

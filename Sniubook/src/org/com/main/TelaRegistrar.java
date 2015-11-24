@@ -1,5 +1,7 @@
 package org.com.main;
 
+import java.util.ArrayList;
+
 import org.com.model.Aluno;
 
 import android.app.Activity;
@@ -11,6 +13,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -31,6 +36,41 @@ public class TelaRegistrar extends Activity {
 		setContentView(R.layout.tela_registro);
 		
 		inicializarComponentesGraficos();
+		
+		spCurso.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				String curso = spCurso.getSelectedItem().toString().substring(0, 3);
+				try {
+					BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+					String sql = "SELECT duracao FROM curso WHERE codigo = '" + curso + "'";
+					Cursor cursor = BancoDados.rawQuery(sql, null);
+					if (cursor.getCount() > 0) {
+						cursor.moveToFirst();
+						ArrayList<String> listaPeriodos = new ArrayList<String>();
+						for (int i = 1; i <= cursor.getInt(0); i++) {
+							listaPeriodos.add(i+"A");
+							listaPeriodos.add(i+"B");
+						}
+
+						ArrayAdapter<String> periodos = new ArrayAdapter<String>(TelaRegistrar.this, android.R.layout.simple_spinner_item, listaPeriodos);
+						spPeriodo.setAdapter(periodos);
+					}
+				} catch (Exception erro) {
+					exibirMensagem("Erro", "Ocorreu um erro ao preencher os periodos.\n" + erro.toString());
+				} finally {
+					BancoDados.close();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 		
 		btCancelar.setOnClickListener(new OnClickListener() {
 			

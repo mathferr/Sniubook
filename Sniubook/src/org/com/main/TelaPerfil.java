@@ -1,5 +1,7 @@
 package org.com.main;
 
+import java.util.ArrayList;
+
 import org.com.model.Aluno;
 
 import android.app.Activity;
@@ -12,6 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -35,6 +40,52 @@ public class TelaPerfil extends Activity {
 		setContentView(R.layout.tela_perfil);
 		
 		inicializarTelaPerfil();
+		
+		spPerfilCurso.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				String curso = spPerfilCurso.getSelectedItem().toString().substring(0, 3);
+				try {
+					BancoDados = openOrCreateDatabase("sniubook", MODE_WORLD_READABLE, null);
+					String sql = "SELECT duracao FROM curso WHERE codigo = '" + curso + "'";
+					Cursor cursor = BancoDados.rawQuery(sql, null);
+					if (cursor.getCount() > 0) {
+						cursor.moveToFirst();
+						ArrayList<String> listaPeriodos = new ArrayList<String>();
+						for (int i = 1; i <= cursor.getInt(0); i++) {
+							listaPeriodos.add(i+"A");
+							listaPeriodos.add(i+"B");
+						}
+
+						ArrayAdapter<String> periodos = new ArrayAdapter<String>(TelaPerfil.this, android.R.layout.simple_spinner_item, listaPeriodos);
+						spPerfilPeriodo.setAdapter(periodos);
+						
+						if (perfil.getPeriodo() != null) {
+							spPerfilPeriodo.setEnabled(true);
+							for (int i = 0; i < spPerfilPeriodo.getCount(); i++) {
+								if (spPerfilPeriodo.getItemAtPosition(i).toString().contains(perfil.getPeriodo())) {
+									spPerfilPeriodo.setSelection(i);
+								}
+							}
+						} else {
+							spPerfilPeriodo.setEnabled(false);
+						}
+						
+					}
+				} catch (Exception erro) {
+					exibirMensagem("Erro", "Ocorreu um erro ao preencher os periodos.\n" + erro.toString());
+				} finally {
+					BancoDados.close();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		
 		btDeslogar.setOnClickListener(new OnClickListener() {
 			
